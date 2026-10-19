@@ -9,9 +9,18 @@
   <meta property="og:title" content="Any2API — one gateway, every format">
   <meta property="og:description" content="Translate OpenAI Chat, Anthropic Messages, Gemini, and Responses with streaming, tools, failover, and observable operations.">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Any2API">
   <meta property="og:url" content="https://dwgx.github.io/any2api/">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://dwgx.github.io/any2api/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta name="twitter:image" content="https://dwgx.github.io/any2api/assets/og.png">
   <link rel="canonical" href="https://dwgx.github.io/any2api/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://dwgx.github.io/any2api/zh-Hant/">
+  <link rel="alternate" hreflang="x-default" href="https://dwgx.github.io/any2api/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <script>
     (function () {
@@ -41,6 +50,7 @@
         <a href="#start">Quickstart</a>
       </nav>
       <div class="nav-actions">
+        <a class="btn btn-ghost btn-sm" href="zh-Hant/" hreflang="zh-Hant">繁中</a>
         <a class="btn btn-ghost btn-sm" href="https://github.com/dwgx/any2api" target="_blank" rel="noreferrer">
           GitHub
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
@@ -147,6 +157,10 @@
             <div class="tags"><span>no telemetry</span><span>public off</span><span>env refs</span></div>
           </article>
         </div>
+        <figure class="figure">
+          <img src="assets/streaming.svg" alt="SSE frames flowing through Any2API with a validated terminal frame">
+          <figcaption>A stream is a contract: forward frames, validate the terminal, never replay after commit.</figcaption>
+        </figure>
       </section>
 
       <section class="section split" id="how">
@@ -181,6 +195,10 @@
           </div>
           <div class="code-note">Same gateway. Different dialects. One upstream chain.</div>
         </div>
+        <figure class="figure">
+          <img src="assets/architecture.svg" alt="Client formats on the left, Any2API in the middle, upstream protocols on the right">
+          <figcaption>Convert once when protocols differ. Keep bytes intact when they match.</figcaption>
+        </figure>
       </section>
 
       <section class="section" id="start">
@@ -240,6 +258,10 @@ models:
             <li><span class="check" aria-hidden="true">✓</span><span><strong>Admin off by default.</strong> No admin key means no admin routes.</span></li>
           </ul>
         </div>
+        <figure class="figure">
+          <img src="assets/security.svg" alt="Security posture: public surface off, loopback bind, environment references, admin key required">
+          <figcaption>Public surface off by default. Credentials by reference.</figcaption>
+        </figure>
       </section>
     </main>
 

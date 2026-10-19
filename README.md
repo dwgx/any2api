@@ -2,7 +2,7 @@
 
 # Any2API
 
-**Website: [dwgx.github.io/any2api](https://dwgx.github.io/any2api/)**
+**Website: [dwgx.github.io/any2api](https://dwgx.github.io/any2api/) ・ [繁體中文](README.zh-Hant.md) ・ [繁中頁面](https://dwgx.github.io/any2api/zh-Hant/)**
 
 Universal protocol transport translator for LLM APIs: one service that accepts OpenAI Chat, Anthropic Messages, Gemini, and OpenAI Responses requests, converts them to the configured upstream protocol, and converts responses back — including streaming, tool calls, and failover.
 
@@ -19,6 +19,10 @@ Universal protocol transport translator for LLM APIs: one service that accepts O
 - Optional managed background tasks for Responses.
 - Optional public service surface (sessions, access keys, rate limits, concurrency gate) — **off by default**.
 - No telemetry. No credentials in this repository.
+
+## Architecture
+
+![Client formats enter Any2API and leave as upstream protocols](assets/architecture.svg)
 
 ## Quick start
 
@@ -72,6 +76,12 @@ upstreams:
 - The admin surface is disabled when `admin_key` is unset; bind the service to loopback unless you put a reviewed reverse proxy in front.
 - `public.enabled` is `false` by default. Enabling it turns on sessions, access keys, per-IP limits, concurrency limits, and budget controls.
 - See [`SECURITY.md`](SECURITY.md) for reporting and hardening notes.
+
+![Security posture: public surface off by default, loopback bind, environment references, admin key required](assets/security.svg)
+
+## 繁體中文
+
+Any2API 是 LLM API 的通用協定傳輸層：同一個服務接受 OpenAI Chat、Anthropic Messages、Gemini 與 Responses，轉換成設定的上游協定，再把回應轉回來，涵蓋串流、工具呼叫與容錯切換。完整說明請見 **[README.zh-Hant.md](README.zh-Hant.md)**，或直接前往 **[繁體中文頁面](https://dwgx.github.io/any2api/zh-Hant/)**。
 
 ## Documentation
 

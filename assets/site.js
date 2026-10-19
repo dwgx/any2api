@@ -43,7 +43,7 @@
       var text = target.textContent || '';
       var done = function () {
         var previous = button.textContent;
-        button.textContent = 'Copied';
+        button.textContent = root.lang.indexOf('zh') === 0 ? '已複製' : 'Copied';
         setTimeout(function () { button.textContent = previous; }, 1200);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
