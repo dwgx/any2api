@@ -1,0 +1,5 @@
+data: {"candidates": [{"content": {"role": "model", "parts": [{"functionCall": {"id": "call_p", "name": "build_route", "partialArgs": [{"jsonPath": "$.city", "stringValue": "Os"}], "willContinue": true}}]}, "finishReason": null, "index": 0}]}
+
+data: {"candidates": [{"content": {"role": "model", "parts": [{"functionCall": {"id": "call_p", "name": "build_route", "partialArgs": [{"jsonPath": "$.city", "stringValue": "lo"}, {"jsonPath": "$.stops[0]", "stringValue": "A"}, {"jsonPath": "$.stops[1]", "stringValue": "B"}, {"jsonPath": "$.legs[0].n", "numberValue": 3}], "willContinue": true}}]}, "finishReason": null, "index": 0}]}
+
+data: {"candidates": [{"content": {"role": "model", "parts": [{"functionCall": {"id": "call_p", "name": "build_route", "partialArgs": [{"jsonPath": "$['ok']", "boolValue": true}], "willContinue": false}}]}, "finishReason": "STOP", "index": 0}], "usageMetadata": {"promptTokenCount": 6, "candidatesTokenCount": 4, "totalTokenCount": 10}}

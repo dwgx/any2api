@@ -1,0 +1,114 @@
+[
+  {
+    "name": "s1_gemini_sse_text-usage.sse",
+    "file": "downstream/s1_gemini_sse_text-usage.sse",
+    "status": 200,
+    "bytes": 650,
+    "sha256": "9632f129fbb7846b13880446a23b2dc5dde84abae8ecebc4eaeceec516d7f2a0",
+    "note": "gemini 入口 SSE × text-usage（usage 逐帧快照）"
+  },
+  {
+    "name": "s2_gemini_array_text-usage.json",
+    "file": "downstream/s2_gemini_array_text-usage.json",
+    "status": 200,
+    "bytes": 630,
+    "sha256": "44a9e643830a7adbed30f9ffb70f5c0358b9ecfef34039ab3c9a54d6dee485b9",
+    "note": "gemini 入口 JSON 数组 × text-usage（W5-19 下游数组形态）"
+  },
+  {
+    "name": "s3_gemini_array_fc-partial.json",
+    "file": "downstream/s3_gemini_array_fc-partial.json",
+    "status": 200,
+    "bytes": 928,
+    "sha256": "7aec9b4141a79d815a38b6540d7567bf1c94ce237c031bdf676e6de5b088e65b",
+    "note": "gemini 入口 JSON 数组 × partialArgs 分片（同协议直通，不物化）"
+  },
+  {
+    "name": "s4_openai_fc-partial.sse",
+    "file": "downstream/s4_openai_fc-partial.sse",
+    "status": 200,
+    "bytes": 915,
+    "sha256": "294fef3ffa08e68c16fcef9cde7d06dbb427ced1b7c928c108f0c6ac4f6d52df",
+    "note": "openai 入口 × partialArgs 分片（跨协议物化：完整 args 一次出）；W5-29：期望值含**响应 id 派生**合成工具 id（call_synth_<32hex>，seed=r-p11-partial；W5-26 的块序形态 call_synth_0 已被替代——有意变更）"
+  },
+  {
+    "name": "s5_openai_fc-partial-cut.txt",
+    "file": "downstream/s5_openai_fc-partial-cut.txt",
+    "status": 200,
+    "bytes": 293,
+    "sha256": "53980e81d778c52bc7188380a96fb6461995aea7f005e6df6152453f3025ab62",
+    "note": "openai 入口 × 分片未收口断流（预提交失败：不得当空参执行）；W5-26：期望值错误帧后**不补 [DONE]**（原录帧 307B 带哨兵——vLLM 形态已改判，见 tmp/lanes/L19-sweep9/proofs/done-after-error.txt）"
+  },
+  {
+    "name": "s6_openai_text-usage.sse",
+    "file": "downstream/s6_openai_text-usage.sse",
+    "status": 200,
+    "bytes": 931,
+    "sha256": "338b3b2981bf257960c92fc993e99c0ce5b50fb67641bed6df5db59495004045",
+    "note": "openai 入口 × text-usage（usage 末帧权威 + include_usage）"
+  },
+  {
+    "name": "s7a_gemini_sse_array-forced.txt",
+    "file": "downstream/s7a_gemini_sse_array-forced.txt",
+    "status": 502,
+    "bytes": 107,
+    "sha256": "483e631c3f9286a6fd31dd32f8406d2dcd367eb0d01c52b5bbb8b69714caac6e",
+    "note": "对抗：上游无视 alt=sse 发数组 → gemini 入口（同协议直通）"
+  },
+  {
+    "name": "s7b_openai_array-forced.txt",
+    "file": "downstream/s7b_openai_array-forced.txt",
+    "status": 502,
+    "bytes": 98,
+    "sha256": "2bf653ee74f43830bb3e85aa180408a710baa12adfa4c949c5366a22a55ac30b",
+    "note": "对抗：上游无视 alt=sse 发数组 → openai 入口（管道解析）"
+  },
+  {
+    "name": "s8a_gemini_sse_text-cut-partial.txt",
+    "file": "downstream/s8a_gemini_sse_text-cut-partial.txt",
+    "status": 200,
+    "bytes": 470,
+    "sha256": "29b2914aaf6230b7802f868149146837a568fdd6ee6a6a036c439afe5c0e700a",
+    "note": "已提交后断流：文本一帧 + partial 未收口 EOF → FD1 错误帧（期望值含错误帧；P11 原录帧为 365B 无错误帧）"
+  },
+  {
+    "name": "s8b_gemini_array_text-cut-partial.json",
+    "file": "downstream/s8b_gemini_array_text-cut-partial.json",
+    "status": 200,
+    "bytes": 351,
+    "sha256": "b1b91800ea86af774619eae83b761f0dce320a57c311984af6a101dbc57bfbc2",
+    "note": "已提交后断流：数组下游不闭合（FD1——截断 JSON = 失败信号；P11 原录帧以 `]` 闭合）"
+  },
+  {
+    "name": "s9_gemini_sse_fc-parallel.sse",
+    "file": "downstream/s9_gemini_sse_fc-parallel.sse",
+    "status": 200,
+    "bytes": 459,
+    "sha256": "2606682f4e6bb13015a0f27fed0cc3365ac7e78f2fb3ff971415e01efa12f737",
+    "note": "gemini 入口 SSE × 同帧并行 functionCall（直通录帧）"
+  },
+  {
+    "name": "s10_openai_fc-parallel.sse",
+    "file": "downstream/s10_openai_fc-parallel.sse",
+    "status": 200,
+    "bytes": 1169,
+    "sha256": "3c9a54f5e75b41b84b6da9b5c81edf4d12d4ec7f3a1ae6bf4bb45fa362673648",
+    "note": "openai 入口 × 同帧并行 functionCall（稳定 index 0/1）；W5-29：期望值含**响应 id 派生**合成工具 id（call_synth_<32hex>，seed=r-p11-par；W5-26 的块序形态 call_synth_0/1 已被替代——有意变更）"
+  },
+  {
+    "name": "s11a_gemini_sse_text-abort.txt",
+    "file": "downstream/s11a_gemini_sse_text-abort.txt",
+    "status": 200,
+    "bytes": 241,
+    "sha256": "a680f8e098b4a51da76c17eb4033fdff5593bd29e38391e7a9c8bf946038f813",
+    "note": "已提交后上游断连（RST）→ gemini SSE 错误帧、无 [DONE]（FD2——P11 原录帧错误帧后带 `data: [DONE]`）"
+  },
+  {
+    "name": "s11b_gemini_array_text-abort.json",
+    "file": "downstream/s11b_gemini_array_text-abort.json",
+    "status": 200,
+    "bytes": 144,
+    "sha256": "e5aa066fe9c0155d41fa1f6e6bbf88207560555c0b8504923df18e50d89a44ba",
+    "note": "已提交后上游断连（RST）→ gemini 数组下游（中途失败不闭合）"
+  }
+]

@@ -1,0 +1,1 @@
+{"generation_config":{"max_output_tokens":64,"temperature":0.3,"thinking_level":"low"},"input":[{"content":[{"text":"Hi","type":"text"}],"type":"user_input"}],"model":"gemini-3-flash-preview","stream":true,"system_instruction":"Be brief."}

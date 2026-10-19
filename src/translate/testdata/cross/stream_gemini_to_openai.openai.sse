@@ -1,0 +1,11 @@
+data: {"id": "r-stream", "object": "chat.completion.chunk", "created": 0, "model": "gemini-2.5-flash", "choices": [{"index": 0, "delta": {"role": "assistant", "content": ""}, "finish_reason": null}]}
+
+data: {"id": "r-stream", "object": "chat.completion.chunk", "created": 0, "model": "gemini-2.5-flash", "choices": [{"index": 0, "delta": {"content": "I"}, "finish_reason": null}]}
+
+data: {"id": "r-stream", "object": "chat.completion.chunk", "created": 0, "model": "gemini-2.5-flash", "choices": [{"index": 0, "delta": {"content": " cannot do that here"}, "finish_reason": null}]}
+
+data: {"id": "r-stream", "object": "chat.completion.chunk", "created": 0, "model": "gemini-2.5-flash", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}
+
+data: {"id": "r-stream", "object": "chat.completion.chunk", "created": 0, "model": "gemini-2.5-flash", "choices": [], "usage": {"prompt_tokens": 27, "completion_tokens": 32, "total_tokens": 59}}
+
+data: [DONE]

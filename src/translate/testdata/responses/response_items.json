@@ -1,0 +1,50 @@
+{
+  "id": "resp_abc",
+  "object": "response",
+  "created_at": 1741290958,
+  "status": "completed",
+  "model": "gpt-5",
+  "output": [
+    {
+      "id": "rs_synth_7523b964d64e4b41a01c2a36f8687490",
+      "type": "reasoning",
+      "status": "completed",
+      "summary": [{"type": "summary_text", "text": "Check the weather tool first."}],
+      "encrypted_content": "sig_blob"
+    },
+    {
+      "id": "msg_synth_1a61f6cce886d0d4453f518eb7b49981",
+      "type": "message",
+      "status": "completed",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "It is 22C in Paris.",
+          "annotations": [],
+          "logprobs": []
+        }
+      ]
+    },
+    {
+      "id": "fc_synth_34d71fb753459eaca063615535a4b06d",
+      "type": "function_call",
+      "status": "completed",
+      "call_id": "call_a",
+      "name": "get_weather",
+      "arguments": "{\"city\":\"Paris\"}"
+    }
+  ],
+  "error": null,
+  "incomplete_details": null,
+  "parallel_tool_calls": true,
+  "tool_choice": "auto",
+  "tools": [],
+  "usage": {
+    "input_tokens": 100,
+    "input_tokens_details": {"cached_tokens": 0, "cache_write_tokens": 0},
+    "output_tokens": 20,
+    "output_tokens_details": {"reasoning_tokens": 5},
+    "total_tokens": 120
+  }
+}

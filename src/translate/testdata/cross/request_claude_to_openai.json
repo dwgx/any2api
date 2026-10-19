@@ -1,0 +1,22 @@
+{
+  "model": "claude-sonnet-4-5",
+  "max_tokens": 512,
+  "system": [
+    {"type": "text", "text": "Sys A."},
+    {"type": "text", "text": "Sys B."}
+  ],
+  "messages": [
+    {"role": "user", "content": "Hi"},
+    {"role": "assistant", "content": [
+      {"type": "tool_use", "id": "toolu_1", "name": "lookup", "input": {"q": "x"}}
+    ]},
+    {"role": "user", "content": [
+      {"type": "tool_result", "tool_use_id": "toolu_1", "content": "result text"}
+    ]}
+  ],
+  "tools": [{"name": "lookup", "description": "d", "input_schema": {"type": "object"}}],
+  "tool_choice": {"type": "tool", "name": "lookup"},
+  "stop_sequences": ["STOP"],
+  "temperature": 0.3,
+  "stream": true
+}

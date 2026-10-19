@@ -1,0 +1,335 @@
+{
+  "model": "claude-sonnet-5-5",
+  "max_tokens": 128000,
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "<system-reminder>\nCodebase and user instructions are shown below. Be sure to adhere to these instructions. IMPORTANT: These instructions OVERRIDE any default behavior and you MUST follow them exactly as written.\n\nContents of D:\\Project\\Any2API\\AGENTS.md (project instructions, checked into the codebase):\n\n# Any2API — 项目\n…(trimmed in fixture)…\n"
+        },
+        {
+          "type": "text",
+          "text": "<system-reminder>\nAs you answer the user's questions, you can use the following context:\n# gitStatus\nThis is the git status at the start of the conversation. Note that this status is a snapshot in time, and will not update during the conversation.\n\nCurrent branch: main\n\nMain branch (you will usually use this for PRs): \n…(trimmed in fixture)…\n"
+        },
+        {
+          "type": "text",
+          "text": "<system-reminder>\nAttribution for git commits and pull requests you create from here on (this replaces Claude Code's own earlier attribution guidance, such as a previous copy of this reminder; the user's own instructions about these lines, such as a CLAUDE.md or memory rule, take precedence over this reminder, but do n\n…(trimmed in fixture)…\n"
+        },
+        {
+          "type": "text",
+          "text": "用一句话介绍你自己"
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "content": [
+        {
+          "type": "text",
+          "text": "# Environment\nYou have been invoked in the following environment: \n - Primary working directory: <workdir>\n - Is a git repository: true\n - Platform: win32\n - Shell: bash\n - OS Version: <os-version>\n\n…(trimmed in fixture)…\n<total_tokens>15000000 tokens left</total_tokens>\n\nToday's date is 2026-10-14.",
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        }
+      ],
+      "output_config": {
+        "effort": "medium"
+      }
+    }
+  ],
+  "system": [
+    {
+      "type": "text",
+      "text": "x-anthropic-billing-header: cc_version=2.1.299.10f; cc_entrypoint=sdk-cli;"
+    },
+    {
+      "type": "text",
+      "text": "You are a Claude agent, built on Anthropic's Claude Agent SDK.",
+      "cache_control": {
+        "type": "ephemeral"
+      }
+    },
+    {
+      "type": "text",
+      "text": "\nYou are an agent working with the user toward their goals, using your own judgment along the way.\n\nIMPORTANT: Assist with authorized security testing, defensive security, CTF challenges, and educational contexts. Refuse requests for destructive techniques, DoS attacks, mass targeting, supply chain compromise, or detection evasion for malicious purposes. Dual-use security tools (C2 frameworks, credential testing, exploit development) require clear authorization context: pentesting engagements, C\n…(trimmed in fixture)…\n",
+      "cache_control": {
+        "type": "ephemeral"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "name": "Agent",
+      "description": "Launch a new agent to handle complex, multi-step tasks. Each agent type has specific capabilities and tools available...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Bash",
+      "description": "Executes a bash command and returns its output.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CronCreate",
+      "description": "Schedule a prompt to be enqueued at a future time. Use for both recurring schedules and one-shot reminders.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CronDelete",
+      "description": "Cancel a cron job previously scheduled with CronCreate. Removes it from .claude/scheduled_tasks.json (durable jobs) o...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "CronList",
+      "description": "List all cron jobs scheduled via CronCreate, both durable (.claude/scheduled_tasks.json) and session-only.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Edit",
+      "description": "Performs exact string replacement in a file.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "EnterWorktree",
+      "description": "Use this tool ONLY when explicitly instructed to work in a worktree — either by the user directly, or by project inst...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ExitWorktree",
+      "description": "Exit a worktree session created by EnterWorktree and return the session to the original working directory.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Glob",
+      "description": "Fast file pattern matching. Supports glob patterns like \"**/*.js\" or \"src/**/*.ts\". Returns matching file paths sorte...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Grep",
+      "description": "Content search built on ripgrep. Prefer this over `grep`/`rg` via Bash — results integrate with the permission UI and...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ListAgents",
+      "description": "Lists agents you can SendMessage to — in-process subagents you spawned, the teammates on your team, other local Claud...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "NotebookEdit",
+      "description": "Replaces, inserts, or deletes a single cell in a Jupyter notebook (.ipynb file).",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Read",
+      "description": "Reads a file from the local filesystem.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ReportFindings",
+      "description": "Report code-review findings as a typed list so the host UI can render them. Use this only when the active code-review...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "ScheduleWakeup",
+      "description": "Schedule when to resume work in /loop dynamic mode — the user invoked /loop without an interval, asking you to self-p...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "SendMessage",
+      "description": "# SendMessage",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Skill",
+      "description": "Invoke a skill.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "TaskStop",
+      "description": "",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "WebFetch",
+      "description": "Fetches a URL, converts the page to markdown, and answers `prompt` against it using a small fast model.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "WebSearch",
+      "description": "Search the web. Returns result blocks with titles and URLs. US-only.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Workflow",
+      "description": "Execute a workflow script that orchestrates multiple subagents deterministically. Workflows run in the background — t...",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "Write",
+      "description": "Writes a file to the local filesystem, overwriting if one exists.",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ],
+  "thinking": {
+    "type": "adaptive",
+    "display": "omitted"
+  },
+  "output_config": {
+    "effort": "medium"
+  },
+  "context_management": {
+    "edits": [
+      {
+        "type": "clear_thinking_20251015",
+        "keep": "all"
+      }
+    ]
+  },
+  "metadata": {
+    "user_id": "{\"device_id\": \"<device-id>\", \"account_uuid\": \"\", \"session_id\": \"<session-id>\"}"
+  },
+  "safeguards": [
+    {
+      "type": "dangerous_tool_use",
+      "classifier_context": {
+        "v": 1,
+        "permission_mode": "auto",
+        "platform": "windows",
+        "live_cwd": "<workdir>",
+        "home_dir": "<homedir>",
+        "rule_roots": {
+          "userSettings": "<dir>",
+          "projectSettings": "<dir>",
+          "localSettings": "<dir>",
+          "flagSettings": "<dir>",
+          "policySettings": "<dir>",
+          "cliArg": "<dir>",
+          "command": "<dir>",
+          "session": "<dir>",
+          "toolsNarrowing": "<dir>",
+          "mcpServerPolicy": "<dir>",
+          "hostCredential": "<dir>"
+        },
+        "trusted_directories": {
+          "primary": {
+            "path": "<workdir>",
+            "resolved": [
+              "<workdir>"
+            ]
+          },
+          "additional": [],
+          "network": [],
+          "block_reads_outside_working_directories": false
+        },
+        "rules": {
+          "allow": [],
+          "deny": [],
+          "ask": []
+        },
+        "auto_mode": {
+          "allow": [],
+          "soft_deny": [],
+          "hard_deny": [],
+          "environment": []
+        },
+        "artifact_consent_holdback": false,
+        "case_insensitive_paths": true,
+        "restricted": false,
+        "is_remote_mode": false,
+        "classify_all_shell": false,
+        "user_identity": "<user>",
+        "git_state": {
+          "cwd": "<workdir>",
+          "root": "<repo>",
+          "branch": "main",
+          "default_branch": null,
+          "status": {
+            "clean": true,
+            "counts": {
+              "staged": 0,
+              "modified": 0,
+              "untracked": null,
+              "untracked_normal": 0
+            },
+            "porcelain": null,
+            "truncated": false
+          },
+          "visibility": {
+            "origin": null,
+            "push_remote": "origin",
+            "remotes": [],
+            "visibility_cache": []
+          }
+        }
+      }
+    }
+  ],
+  "stream": true
+}

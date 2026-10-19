@@ -1,0 +1,7 @@
+{
+  "model": "gemini-3-flash-preview",
+  "system_instruction": "Be terse.",
+  "input": [{ "type": "user_input", "content": [{ "type": "text", "text": "Hi" }] }],
+  "generation_config": { "max_output_tokens": 64 },
+  "stream": true
+}

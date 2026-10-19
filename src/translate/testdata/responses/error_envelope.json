@@ -1,0 +1,8 @@
+{
+  "error": {
+    "message": "Invalid value for 'input': must be a string or an array of items.",
+    "type": "invalid_request_error",
+    "param": "input",
+    "code": "invalid_prompt"
+  }
+}

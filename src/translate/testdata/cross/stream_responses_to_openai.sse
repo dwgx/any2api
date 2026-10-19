@@ -1,0 +1,30 @@
+event: response.created
+data: {"type":"response.created","response":{"id":"resp_c2","object":"response","created_at":1741292100,"status":"in_progress","model":"gpt-5","output":[],"usage":null},"sequence_number":0}
+
+event: response.in_progress
+data: {"type":"response.in_progress","response":{"id":"resp_c2","status":"in_progress"},"sequence_number":1}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","output_index":0,"item":{"id":"msg_c2","type":"message","status":"in_progress","role":"assistant","content":[]},"sequence_number":2}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","item_id":"msg_c2","output_index":0,"content_index":0,"delta":"Checking","sequence_number":3,"logprobs":[]}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","item_id":"msg_c2","output_index":0,"content_index":0,"delta":" weather","sequence_number":4,"logprobs":[]}
+
+event: response.output_item.done
+data: {"type":"response.output_item.done","output_index":0,"item":{"id":"msg_c2","type":"message","status":"completed","role":"assistant","content":[{"type":"output_text","text":"Checking weather","annotations":[],"logprobs":[]}]},"sequence_number":5}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","output_index":1,"item":{"id":"fc_c2","type":"function_call","status":"in_progress","call_id":"call_c2","name":"get_weather","arguments":""},"sequence_number":6}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","item_id":"fc_c2","output_index":1,"delta":"{\"city\":\"Paris\"}","sequence_number":7}
+
+event: response.output_item.done
+data: {"type":"response.output_item.done","output_index":1,"item":{"id":"fc_c2","type":"function_call","status":"completed","call_id":"call_c2","name":"get_weather","arguments":"{\"city\":\"Paris\"}"},"sequence_number":8}
+
+event: response.completed
+data: {"type":"response.completed","response":{"id":"resp_c2","object":"response","created_at":1741292100,"status":"completed","model":"gpt-5","output":[{"id":"msg_c2","type":"message","status":"completed","role":"assistant","content":[{"type":"output_text","text":"Checking weather","annotations":[],"logprobs":[]}]},{"id":"fc_c2","type":"function_call","status":"completed","call_id":"call_c2","name":"get_weather","arguments":"{\"city\":\"Paris\"}"}],"usage":{"input_tokens":30,"input_tokens_details":{"cached_tokens":0,"cache_write_tokens":0},"output_tokens":12,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":42},"incomplete_details":null},"sequence_number":9}
+

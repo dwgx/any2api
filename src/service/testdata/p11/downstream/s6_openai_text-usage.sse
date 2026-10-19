@@ -1,0 +1,12 @@
+data: {"id":"r-p11-text","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"r-p11-text","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{"content":"Hel"},"finish_reason":null}]}
+
+data: {"id":"r-p11-text","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{"content":"lo"},"finish_reason":null}]}
+
+data: {"id":"r-p11-text","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{},"finish_reason":"stop"}]}
+
+data: {"id":"r-p11-text","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[],"usage":{"completion_tokens":70,"completion_tokens_details":{"reasoning_tokens":7},"prompt_tokens":101,"total_tokens":171}}
+
+data: [DONE]
+

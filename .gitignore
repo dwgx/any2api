@@ -1,0 +1,25 @@
+# Local deployment secrets and runtime data
+config.yaml
+.env
+.env.*
+data/
+*.db
+*.db-*
+*.log
+*.pid
+
+# Local tooling / agent state
+.omp/
+.claude/
+.codex/
+.mcp.json
+*.session.jsonl
+omp-session-*.html
+*.before-*
+
+# OS / editor
+__pycache__/
+*.pyc
+Thumbs.db
+Desktop.ini
+.DS_Store

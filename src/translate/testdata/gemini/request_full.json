@@ -1,0 +1,43 @@
+{
+  "systemInstruction": {
+    "role": "user",
+    "parts": [
+      {"text": "You are a helpful assistant."},
+      {"text": "Answer in metric units."}
+    ]
+  },
+  "contents": [
+    {"role": "user", "parts": [{"text": "What is the weather in Paris?"}]},
+    {"role": "model", "parts": [{"text": "Let me check."}]},
+    {"role": "model", "parts": [{"functionCall": {"id": "call_a", "name": "get_weather", "args": {"city": "Paris"}}}]},
+    {"role": "user", "parts": [{"functionResponse": {"id": "call_a", "name": "get_weather", "response": {"result": "18C, light rain"}}}]},
+    {"role": "user", "parts": [{"text": "And tomorrow?"}]}
+  ],
+  "tools": [
+    {
+      "functionDeclarations": [
+        {
+          "name": "get_weather",
+          "description": "Look up the weather for a city",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "city": {"type": "string", "description": "City name"}
+            },
+            "required": ["city"]
+          }
+        }
+      ]
+    }
+  ],
+  "toolConfig": {"functionCallingConfig": {"mode": "AUTO"}},
+  "generationConfig": {
+    "maxOutputTokens": 1024,
+    "temperature": 0.4,
+    "topP": 0.9,
+    "stopSequences": ["\n\n"]
+  },
+  "safetySettings": [
+    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "OFF"}
+  ]
+}

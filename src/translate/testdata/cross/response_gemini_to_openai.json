@@ -1,0 +1,14 @@
+{
+  "responseId": "r1",
+  "modelVersion": "gemini-2.5-flash",
+  "candidates": [
+    {"index": 0, "content": {"role": "model", "parts": [{"text": "Hi"}]}, "finishReason": "STOP"}
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 9,
+    "candidatesTokenCount": 2,
+    "thoughtsTokenCount": 1,
+    "cachedContentTokenCount": 4,
+    "totalTokenCount": 12
+  }
+}

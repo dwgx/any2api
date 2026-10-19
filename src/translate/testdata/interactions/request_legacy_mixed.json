@@ -1,0 +1,6 @@
+{
+  "model": "gemini-3-flash-preview",
+  "response_mime_type": "application/json",
+  "response_format": { "type": "text", "mime_type": "application/json" },
+  "input": "List two ingredients."
+}

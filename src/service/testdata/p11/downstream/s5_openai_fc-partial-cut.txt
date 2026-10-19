@@ -1,0 +1,4 @@
+data: {"id":"r-p11-partial","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"error":{"message":"stream ended with an incomplete function call","type":"incomplete_stream"}}
+

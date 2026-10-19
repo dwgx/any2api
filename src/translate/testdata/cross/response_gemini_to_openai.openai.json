@@ -1,0 +1,16 @@
+{
+  "id": "r1",
+  "object": "chat.completion",
+  "created": 0,
+  "model": "gemini-2.5-flash",
+  "choices": [
+    {"index": 0, "message": {"role": "assistant", "content": "Hi"}, "finish_reason": "stop"}
+  ],
+  "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 3,
+    "total_tokens": 12,
+    "prompt_tokens_details": {"cached_tokens": 4},
+    "completion_tokens_details": {"reasoning_tokens": 1}
+  }
+}

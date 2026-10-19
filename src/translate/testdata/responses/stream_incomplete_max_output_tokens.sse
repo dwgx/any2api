@@ -1,0 +1,14 @@
+event: response.created
+data: {"type":"response.created","response":{"id":"resp_gc23","object":"response","created_at":1742000000,"status":"in_progress","model":"gc-model","output":[],"usage":null},"sequence_number":0}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","output_index":0,"item":{"id":"fc_gc23","type":"function_call","status":"in_progress","call_id":"call_gc23","name":"get_weather","arguments":""},"sequence_number":1}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","item_id":"fc_gc23","output_index":0,"delta":"{\"city\":\"San","sequence_number":2}
+
+event: response.function_call_arguments.delta
+data: {"type":"response.function_call_arguments.delta","item_id":"fc_gc23","output_index":0,"delta":" Francisco","sequence_number":3}
+
+event: response.incomplete
+data: {"type":"response.incomplete","response":{"id":"resp_gc23","object":"response","created_at":1742000000,"status":"incomplete","model":"gc-model","output":[{"id":"fc_gc23","type":"function_call","status":"incomplete","call_id":"call_gc23","name":"get_weather","arguments":"{\"city\":\"San Francisco"}],"usage":{"input_tokens":18,"input_tokens_details":{"cached_tokens":0},"output_tokens":6,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":24},"incomplete_details":{"reason":"max_output_tokens"}},"sequence_number":4}

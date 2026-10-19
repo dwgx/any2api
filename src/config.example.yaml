@@ -1,0 +1,321 @@
+# Any2API 薄服务配置示例。
+#
+# 复制为 config.yaml 并填入真实值；凭据只放在本地配置文件（不要提交）。
+# 所有值为占位符——本仓库产物中不含任何真实凭据。
+#
+# 凭据可用环境变量引用：api_key 支持 `${VAR}` 形态（只认花括号；未定义/空值/未闭合
+# → 启动显式报错且不泄露值；裸 `$VAR` 为字面量）。
+
+# HTTP 监听地址（缺省 127.0.0.1:8787，默认只绑回环）。
+listen: "127.0.0.1:8787"
+
+# 上游列表（至少一个）。**有序 failover 链**：按配置顺序尝试；未提交下游响应前
+# 失败按 C1 分类换下一个上游（429/529/5xx、传输错误、非 SSE 体……），提交后失败
+# 绝不重试/重放。同协议多上游 = 在同一列表里追加同 protocol 的条目（见下面
+# anthropic-main → anthropic-backup）；条目也可跨协议（按各自 protocol 转换）。
+upstreams:
+  # Anthropic Messages 上游（POST /v1/messages）——主。
+  - name: anthropic-main
+    protocol: anthropic            # anthropic | openai_chat | gemini | responses | interactions | claude_web | chatgpt_web
+    base_url: "https://api.anthropic.com"
+    api_key: "sk-ant-REPLACE_ME"   # 也可写 "${ANTHROPIC_API_KEY}"：${VAR} 从进程环境展开（见文件头）
+    # anthropic-workspace-id 注入/覆盖（可选；仅 anthropic 上游生效）：
+    # 非空 = 每个上游请求带该头（覆盖客户端自带值）；留空 = 客户端带则转发、
+    # 不带则不发明。上游为 Claude Platform on AWS 时该平台逐请求要求此头。
+    # workspace_id: "wrkspc-REPLACE_ME"
+
+  # 同协议备份上游：主上游失败（预提交）时按序切换到这里。
+  - name: anthropic-backup
+    protocol: anthropic
+    base_url: "https://api.anthropic.com"
+    api_key: "sk-ant-REPLACE_ME-2"
+
+  # OpenAI Chat Completions 上游（POST /v1/chat/completions）。
+  - name: openai-backup
+    protocol: openai_chat
+    base_url: "https://api.openai.com"
+    api_key: "sk-REPLACE_ME"
+
+  # OpenAI Responses 上游（POST /v1/responses + Bearer）——items 制线格式；
+  # 模型名与 stream 开关都在请求体里，路径固定（openai-responses 表 §请求面）。
+  # task_face（任务面能力，可选；W27-1）：managed（缺省）| passthrough | off——
+  #   managed = 网关托管任务（background 服务层剥除、网关自造 id + 事件缓冲 +
+  #     续流/取消/记账；任务流量可落该上游）；
+  #   passthrough = 上游原生任务面（**仅 protocol: responses 合法**）：background
+  #     原样透传、id = 上游 id、retrieve/cancel/续流（含 starting_after 游标）直连
+  #     上游任务端点；网关只持 id→上游 路由表（内存、TTL 1h、不缓冲不合成）；
+  #   off = 任务面关闭：任务流量绝不落该上游（无可用上游时任务创建 404
+  #     task_face_unavailable）；同步路径不受影响。
+  - name: responses-backup
+    protocol: responses
+    base_url: "https://api.openai.com"
+    api_key: "sk-REPLACE_ME"
+    # task_face: managed            # 缺省 managed；要透传原生任务面改 passthrough
+
+  # Gemini generateContent 上游（POST /v1beta/models/{模型名}:generateContent；
+  # 流式 :streamGenerateContent?alt=sse）。模型名取自下游请求体，不在本配置里；
+  # 认证头 x-goog-api-key（key 不进 URL 查询）。
+  - name: gemini-backup
+    protocol: gemini
+    base_url: "https://generativelanguage.googleapis.com"
+    api_key: "AIza-REPLACE_ME"
+
+  # Gemini Interactions 上游（POST /v1beta/interactions，第 5 格式：steps 时间线制）。
+  # 模型名与 stream 开关都在请求体里（不进 URL）；认证头 x-goog-api-key；
+  # 版本开关头 Api-Revision 由服务壳注入——客户端未带头时补新 schema 默认
+  # `2026-05-20`，客户端带头则转发其值（interactions-wire §格式兼容面）。
+  - name: interactions-backup
+    protocol: interactions
+    base_url: "https://generativelanguage.googleapis.com"
+    api_key: "AIza-REPLACE_ME"
+
+  # claude.ai 网页线上游（W10；POST /api/organizations/{org}/chat_conversations/{conv}/completion）。
+  # 凭据 = sessionKey 放 api_key（cookie 注入；`sk-ant-sid0*` 形态，浏览器提取；
+  # 也可写 "${CLAUDE_WEB_SESSION_KEY}" 从进程环境展开）。org_id 非空 = 跳过
+  # 组织发现（GET /api/organizations）直接用；proxy = 仅该上游出站（http CONNECT /
+  # socks5 / socks5h；家宽/静态出口形态）；tls_fingerprint 缺省 none——W11-2 实测
+  # Go 默认栈过 CF（判定因子是 UA/头面非 TLS），真机 completion 遇 403 再切 chrome。
+  # - name: claude-web-main
+  #   protocol: claude_web
+  #   api_key: "${CLAUDE_WEB_SESSION_KEY}"
+  #   # 多凭据池（W53-2；可选——与 api_key 互斥，二者只能给一个）：同一上游配多个
+  #   # sessionKey，请求级轮换（最少近期使用）；配额类（429）短冷却、凭据类
+  #   #（401 / 无盾 403）长冷却（30m）——坏键自动让位、冷却到期自动回归；completion
+  #   # 的 429/401 失败同样回喂冷却（W54-3；**不换号重试**，只冷却）。全部冷却 →
+  #   # upstream_credentials_exhausted 显式报错；单元素池同样生效（单键遇凭据类
+  #   # 失败同样冷却——耗尽快失败）。记账只记索引（credential #N），凭据值绝不进
+  #   # 日志/错误/attempt 记录。值同样支持 ${VAR}（逐项展开，未定义/空值启动报错）。
+  #   # credentials:
+  #   #   - "${CLAUDE_WEB_SESSION_KEY_1}"
+  #   #   - "${CLAUDE_WEB_SESSION_KEY_2}"
+  #   # org_id: "00000000-0000-0000-0000-000000000000"
+  #   # proxy: "socks5h://127.0.0.1:18899"
+  #   # tls_fingerprint: chrome
+  #   # cleanup_conversations: true   # 缺省 true（W13-1）：completion 收尾后异步
+  #   #                                # DELETE 本请求创建的会话（3 次重试、失败只 warn、
+  #   #                                # 绝不挂响应路径）；false = 保留会话
+  #   # tool_sim: true                # 缺省 false（W18-1）：客户端工具模拟（仅
+  #   #                                # claude_web 生效；设计单 claude-web-tool-sim
+  #   #                                # §S1/§S3）——请求面 prompt 最前注入工具契约段
+  #   #                                # （客户端 tools 定义只进 prompt 文本，上游
+  #   #                                # `tools` 字段仍恒三元组），出口面把模型文本里的
+  #   #                                # `<tool_use name="X">{args}</tool_use>` 标签合成回
+  #   #                                # tool_use 块（stop_reason → tool_use）——「模拟·
+  #   #                                # 客户端执行」形态，工具在客户端机器执行。三条件
+  #   #                                # 合取才生效：本开关 && 上游 protocol = claude_web
+  #   #                                # && 入口请求带 tools。缺省关（非最小可用集 +
+  #   #                                # 模型守约率未实测；打开 = 注入与解析成对）
+
+  # chatgpt.com 网页线上游（W30-2；匿名 Android 面三步链 sentinel → prepare →
+  # /backend-anon/f/conversation SSE；W29-1 实抓无 PoW/turnstile——零账号、零凭据）。
+  # device_id 缺省每请求现生成 uuid4（匿名档可钉住）；proxy 语义同 claude_web；
+  # 响应经 translate/convert/chatgpt_web 解析（v1 JSON-Patch SSE + 快照档），
+  # 有界尾读（[DONE]/error 终止帧 + 250ms 宽限）收束。**上游叶子**：只作上游。
+  # - name: chatgpt-web-anon
+  #   protocol: chatgpt_web
+  #   base_url: "https://android.chat.openai.com"
+  #   # device_id: "00000000-0000-4000-8000-000000000000"
+  #   # proxy: "socks5h://127.0.0.1:18899"
+
+# 下游保活帧间隔（秒，缺省 15）：上游静默时向客户端发
+# claude 面 `event: ping` / openai 面 `: keepalive` 注释帧。
+# 注：**不做** TTFT 提前开流（首字节前保活）——上游未产出前不写响应头（提交点
+# 纪律：真实状态码 + 换上游优先；决策依据见 src/service/relay.go 注释）。
+heartbeat_seconds: 15
+
+# 模型表（可选；A6 模型别名映射 + 模型发现数据源）。
+# 非空 = ① 发现面 `GET /v1/models` 逐条从本表读（不再用静态四模型表）；
+#        ② 请求面：请求体顶层 `model` 命中 id 且声明了 upstream_model 时，改写为
+#        upstream_model 再进上游（同协议直通面只换模型名一个字符串，其余字节
+#        逐字节保留）；未命中/未声明 = 原样透传。
+# 缺省（不写本节）= 现状：发现面静态四模型（claude-fable-5-1 等）、请求面透传。
+# 客户端配套：别名模型的窗口/能力声明可用 CC 的 `modelOverrides` 客户端侧修正
+# （官方 §Settings for unrecognized model IDs；上游 404 场景见对接文档）。
+# models:
+#   - id: claude-sonnet-5-5            # 客户端使用的模型名（发现面 id + 请求面别名）
+#     upstream_model: claude-sonnet-5-5-20260101   # 可选；上游模型名（缺省 = 不改写）
+#     max_input_tokens: 1000000       # 可选；发现面上限字段（0/缺省 = 不下发）
+#     max_tokens: 128000              # 可选；发现面上限字段（0/缺省 = 不下发）
+#   - id: claude-haiku-5-5             # 纯发现条目：不改写（id 原样进上游）
+models: []
+
+# 上游冷却（缺省 3 / 30）：同一上游连续失败达 cooldown_failures 次后，在
+# cooldown_seconds 内跳过它（换下一个上游；全部冷却时退化为全列表重试）。
+# 另外：上游错误响应带 `retry-after: <整数秒>` 时按该秒数冷却（CC C1 实测：
+# 整数秒被 parseInt 精确执行；HTTP-date 形态被丢弃——只认前导整数）。
+# **冷却期内再失败不延长冷却**（W5-32：旧行为 until=now+window 反复取较晚者会被
+# 持续故障无限拉长；现只在非冷却态重算窗口。显式 retry-after 例外——仍精确执行）。
+cooldown_failures: 3
+cooldown_seconds: 30
+
+# 冷却阶梯（可选；W5-32 条目 2；缺省不写 = 固定 cooldown_seconds 窗口）。
+# 非空 = 连续**进入冷却**逐级取下一档窗口（秒），成功清零，冷却中失败不推进档位；
+# 与 cooldown_seconds 取较晚者。依据：Parrot `cooldown.py:1-8` 的通用阶梯
+# [1,3,5,10,15,0]min（0=永久）与 sub2api `antigravity_internal500_penalty.go`
+# 的 30min→2h→永久；本实现取**有限档**（无永久——单进程薄壳无人工解除通道，
+# 保守优先）。必须逐档严格递增。
+# 建议档（报告 P65B 裁定 #2）：30s → 2m → 10m。
+# cooldown_ladder: [30, 120, 600]
+
+# 同上游瞬时类失败重试（可选；W5-32 条目 1；**缺省 0 = 关**）。
+# 瞬时类 = 网络层错误（连接失败/超时/截断）+ 显式信号（x-should-retry: true /
+# 错误体 `"type":"overloaded_error"`）+ 429/503/529（rate_limit / server_error
+# 类）；`x-should-retry: false` 压住一切（C1 语义优先）。命中时在同一台上短退避
+# 重试（≤ 本值次，上限 3），仍失败才换下一个上游；**中间重试不计健康/不冷却，
+# 终态才记一次**（Parrot `failover.py:2683-2712` 语义）。与 failover_policy 正交
+# （后者管换台次数，本项管同台等待）。缺省关的理由：不改引入前的换上游节奏
+# （保守优先）；建议值 1——给「忙/过载」一台自愈机会再换号。
+# retry_same_upstream: 0
+# 同上游重试退避序列（毫秒；越界取最后一档；每档加 ±20% jitter）。缺省
+# [750, 1750]（Parrot 0.75/1.75s 同源）。上游带 retry-after-ms/retry-after 时按
+# 头值精确执行（上限 60s），本序列只用于无头形态。
+# retry_same_upstream_delays_ms: [750, 1750]
+
+# 首产出超时（秒；**0 = 关，缺省**）：流式请求从发起上游请求到首个产出字节
+# （提交点）超过该秒数 → 中止本次尝试并按 failover 链换下一个上游（未提交，
+# 真实状态码与换上游都保留）。这是「TTFT 提前开流」的保守替代——不做首字节前
+# 保活（提交点纪律），只给「上游挂住不产出」一个出口。
+# 缺省关的理由：存在首产出 ~100s 的合法上游（思考型模型，P24 实测），默认值会
+# 误杀；上游响应头等待另有 ResponseHeaderTimeout（60s）兜底。仅在明确知道上游
+# 应当快速首产出时才设（如 20）。
+first_byte_timeout_seconds: 0
+
+# per-exception 换上游预算（可选；缺省 = 内置 C1 分类——不写即引入前行为）。
+# 键 = 异常类，值 = 该类失败最多换上游次数（0 = 不换，原错误信封上抛；
+# N>0 = 最多换 N 次；-1 = 不限）。显式信号（错误体 overloaded_error、
+# x-should-retry）优先于本表、不受配置改写（C1 实测语义）。
+# 类名：rate_limit(429) | timeout(408) | conflict(409) | auth(401) |
+#       forbidden(403) | server_error(5xx) | bad_request(其余 4xx) | default |
+#       quota（额度/凭据耗尽——insufficient_quota / billing_hard_limit_reached /
+#       credit_balance_exhausted / upstream_credentials_exhausted / no_eligible_keys /
+#       payment_required；错误体命中即归此类：等多久都没用、换上游也没用，
+#       内定不换不冷却；写 0 与本表缺省同义，写 N>0 可强制换 N 次）
+# 示例：429 只换一台就上抛；把缺省不换的 400 打开为换一台：
+#   failover_policy:
+#     rate_limit: 1
+#     bad_request: 1
+failover_policy: {}
+
+# 失败率冷却（LiteLLM `failure-rate >0.5 且本分钟 ≥5 请求` 范式的最小版；
+# 缺省开）：同一上游在窗口内请求数 ≥ min_requests 且失败率 > threshold →
+# 进入冷却（冷却时长 = cooldown_seconds；与连续失败阈值/retry-after 取较晚者）。
+failure_rate_cooldown:
+  enabled: true
+  min_requests: 5
+  threshold: 0.5
+  window_seconds: 60
+
+# 最小管理面（可选；P63 裁定）。**缺省不写 = 管理面不注册**：/admin/* 全部 404
+#（对齐 CPA「未配管理密钥 = 路由根本不存在（404 非 401）」）。非空 = 注册三条
+# 端点，统一密钥中间件（`Authorization: Bearer <key>` 或 `X-Management-Key: <key>`；
+# 常量时间比较；连续 5 次鉴权失败封禁该客户端 IP 30 分钟）：
+#   GET  /admin/diagnostics      诊断快照（Diagnostics 计数 + per-upstream 健康：
+#                                冷却状态/失败计数/失败率窗口/阶梯档位 + ring 统计
+#                                + admin 鉴权面：累计失败数/封禁 IP 列表与到期）
+#   POST /admin/cooldowns/reset  冷却复位（body 三选一：{"all":true} /
+#                                {"upstream":"<名>"} / {"index":<下标>}；幂等；
+#                                未知目标 404、缺参/歧义 400）
+#   GET  /admin/logs?limit=N&since_id=<seq|next_cursor>
+#                                错误日志只读（有界内存 ring，不落盘；事件：换上游/
+#                                冷却进入/冷却复位/提交前错误）。游标增量协议：
+#                                响应带 next_cursor（不透明令牌，含版本+实例指纹）；
+#                                下次传 since_id=<令牌或十进制 seq> 只取新增（升序）；
+#                                锚已失效（被覆盖丢弃 / 跨进程 / 超前）→ 响应带
+#                                cursor_reset=true + 最新 limit 条（重新同步）；
+#                                limit 上限 = 容量；非法 limit/since_id 400。
+# 纪律：方法不匹配 405（标准库 Allow 头）；读面带 Cache-Control: no-store；
+# 管理响应不含 base_url/api_key（凭据面绝不进管理响应）。
+# **部署注记：管理面仅建议本机监听**（listen 保持回环）——密钥是唯一门，本仓
+# 不实现 TLS / 远端白名单 / allow-remote-management；**绝不**把管理面暴露到
+# 公网。密钥值只放本地配置文件（不要提交）。
+# admin_key: "REPLACE_ME-admin-key"
+# admin_log_capacity: 256        # 错误日志 ring 容量（1..4096；缺省 256；
+#                                # 显式 0/负值/超上限 = 配置错误，不静默降级）
+
+# UI 托管面（可选；W56-1）。缺省（不写本节）= **启用**（只多挂 /ui 路由，无害）
+# + 限流关；前端资产编译进二进制（go:embed），无额外部署步骤。写本节可显式开关
+# 或开启限流：
+#   GET /ui            前端 SPA（静态资产；未知路径回退 index.html）
+#   GET /ui/api/config 前端配置 JSON（default_model / models / rate_limit_per_min）
+# ui:
+#   enabled: true            # 缺省 true；false = 不注册 /ui 路由（/ui/* 全部 404）
+#   rate_limit_per_min: 30   # per-IP 限流（次/分钟；缺省 0 = 关）。> 0 时对
+#                            # /v1/* 与 /ui/api/* 生效（内存态令牌桶、1 分钟窗；
+#                            # 超限 429 + Retry-After）——**公开部署建议开启**。
+
+# 响应卫生（可选；W104）。缺省（不写本节 / 开关 false）= **同格式非流式响应体
+# 与上游逐字节一致**（既有保真策略零变化）。
+#   - scrub_same_format_extras: false（缺省）| true
+#     true 时仅对**同格式非流式成功**响应体做手术式剥除：顶层 upstream-a /
+#     upstream-private 私有计时键 `elapsed_ms` / `first_chunk_at` 连同键值与必要
+#     逗号删除，其余字节逐字节保留（不 re-marshal、不重排、不重编码）。
+#   - 生效边界：只作用于 `upProto == entry` 的非流式成功体；流式帧与跨格式
+#     转换出口不受影响（跨格式由各渲染器过滤表处理——W85/W101）。
+# response_hygiene:
+#   scrub_same_format_extras: false
+
+# 公开服务面（可选；P0-1..8，board A2A-L19-W57-1 / W58-1）。**缺省（不写本节 /
+# enabled: false）= 全链零行为变化**（会话 / 门控 / trust proxy / 并发闸 /
+# 单号 busy+min-gap / 配额档位 / 体上限 全关）；以下全部行为只在 enabled: true
+# 时生效：
+#   - 匿名会话（P0-1）：/v1/* 与 /ui/api/* 自动签发 cookie `a2a_sid`
+#     （HttpOnly / SameSite=Lax / Path=/；Secure 由 TLS 面自动判定——直连 TLS
+#     或可信反代 X-Forwarded-Proto=https）。**无 cookie 请求照常服务**（API
+#     客户端零回归）；cookie 剩余寿命 < 7d 时滚动续期；POST
+#     /ui/api/session/logout 删会话 + 清 cookie（幂等）。
+#   - access key 门控（P0-2）：gated 时无 key 的新会话不可建立（401 按入口
+#     协议信封；/ui/api/config 除外）；key 经 `Authorization: Bearer <key>`
+#     或 `X-Access-Key: <key>` 传入；sha256 常量时间比较；key 原文绝不进
+#     日志/响应（只记 key_id = sha8）；**key 移除 + 重启 → 旧会话失效**。
+#   - trust proxy（P0-3）：TCP 对端命中 trusted_proxies 时取 X-Forwarded-For
+#     **最右非信任跳**为客户端 IP（限流面）；未配置 = 现状（不读 XFF——防伪造）。
+#   - 全局并发闸（P0-4）：超出 max_inflight 的请求进有界队列；队列满 / 等待
+#     超时 → 429 + 正整数 Retry-After（信封码 `rate_limited`）；claude_web 单
+#     凭据 inflight=1（busy 选中即置、尝试收尾释放）+ 最小复用间隔
+#     credential_min_gap_seconds（缺省 300——W52-2 运营配方；0 = 关）。
+#   - 成本预算/档位（P0-5）：请求按 max_tokens/max_output_tokens 粗分四档
+#     （light/medium/heavy/max = A/B/C/D，权重 1/6/11/59 units）；档高于
+#     max_cost_class → 400 拒绝；日预算耗尽 → 429 `daily_quota_exhausted`
+#     （快速路径）；池耗尽 → 429 `capacity_exhausted`（Retry-After=最早解冻）。
+#   - 审计（P0-6）：attempts 日志行带 sid 前缀 + key_id（零凭据字节）；管理面
+#     ring 新事件 session_create / rate_limited / quota_exhausted /
+#     capacity_exhausted + diagnostics 计数 public_*。
+#   - 体上限/结构守卫（P0-8）：max_body_bytes 超限 413；messages 条数 /
+#     单条内容超限 413（均按入口协议信封）。
+# 部署注记：公开部署必须前置反代/隧道（TLS + /admin 屏蔽 + 粗限流），并把
+# 反代地址填进 trusted_proxies；完整清单 + Caddyfile/CF Tunnel 样板见
+# docs/deployment.md；设计 docs/architecture.md。
+# public:
+#   enabled: false           # 缺省 false = 全关（零行为变化）；公开部署改 true
+#   access_mode: open        # open（缺省，匿名即用）| gated（需 access_keys）
+#   access_keys: ["${A2A_ACCESS_KEY_1}"]  # gated 必填；支持 ${VAR} env-ref
+#   trusted_proxies: ["127.0.0.1/32", "::1"]  # 反代地址（CIDR 或裸 IP）
+#   max_inflight: 6          # 全局并发上限（缺省 6；建议 ≤ 健康凭据数）
+#   queue_size: 32           # 有界队列深度（缺省 32）
+#   queue_timeout_seconds: 60    # 排队等待上限秒（缺省 60）
+#   credential_min_gap_seconds: 300  # 单号最小复用间隔秒（缺省 300；0 = 关）
+#   max_cost_class: medium   # 允许的最高成本档 light|medium|heavy|max（缺省
+#                            # medium = 拒绝 heavy/max 档；max 档单发可烧穿一号）
+#   daily_budget_units: 250  # 日预算 units（缺省 250——6 号池保守档；UTC 日界；
+#                            # 0 = 关；耗尽 429 daily_quota_exhausted）
+#   max_body_bytes: 1048576  # 请求体上限字节（缺省 1MB；0 = 用全局 32MB；
+#                            # 超限 413）
+#   max_messages: 200        # messages/input 条数上限（缺省 200；0 = 关；超限 413）
+#   max_message_chars: 262144    # 单条内容上限（缺省 256KB；0 = 关；超限 413）
+
+# store: 持久化（P1-1；缺省不写本节 = 内存现状档——**零行为变化**）。启用后
+# 会话（重启后 cookie 继续有效）/ 用量台账（跨重启预算不重置）/ 审计落 SQLite
+# 单文件（modernc 纯 Go 驱动，无 cgo；WAL + 外键级联）。
+#   - 缺省（enabled: false / 不写本节）= 内存档：会话/额度重启清零（文档化行为，
+#     只适合试运行）；enabled: true 时 path **必填**（空 = 启动报错，绝不静默
+#     降级为内存档——那会静默丢数据）。
+#   - 保留策略（GC；启动时跑一轮 + 显式 GC(now)）：过期会话级联删
+#     conversations/messages/turns；软删列表 7d 硬删；turns 30d / audit 30d /
+#     usage_counters 90d。
+#   - 备份：停机后复制单文件（或 sqlite3 .backup / 文件快照）；WAL 侧文件
+#     (-wal/-shm) 随库一起。
+#   - 零凭据字节：库里只有索引/摘要（sid 前缀、key_id=sha8、池索引），绝无
+#     cookie / key 原文 / 上游凭据 / IP 原文。
+# store:
+#   enabled: false           # 缺省 false = 内存现状档（零行为变化）
+#   path: "data/any2api.db"  # enabled: true 时必填（父目录自动创建）

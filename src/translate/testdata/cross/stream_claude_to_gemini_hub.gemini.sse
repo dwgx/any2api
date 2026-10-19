@@ -1,0 +1,6 @@
+data: {"candidates":[{"content":{"parts":[{"text":"Hel"}],"role":"model"},"index":0}],"modelVersion":"claude-sonnet-4-5","responseId":"msg_h1"}
+
+data: {"candidates":[{"content":{"parts":[{"text":"lo"}],"role":"model"},"index":0}],"modelVersion":"claude-sonnet-4-5","responseId":"msg_h1"}
+
+data: {"candidates":[{"content":{"parts":[],"role":"model"},"finishReason":"STOP","index":0}],"modelVersion":"claude-sonnet-4-5","responseId":"msg_h1","usageMetadata":{"candidatesTokenCount":2,"promptTokenCount":7,"totalTokenCount":9}}
+

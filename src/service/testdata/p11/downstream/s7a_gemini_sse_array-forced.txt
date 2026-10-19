@@ -1,0 +1,1 @@
+{"error":{"code":500,"message":"upstream returned non-SSE body for streaming request","status":"INTERNAL"}}

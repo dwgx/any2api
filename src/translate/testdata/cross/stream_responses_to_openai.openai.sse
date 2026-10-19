@@ -1,0 +1,14 @@
+data: {"id":"resp_c2","object":"chat.completion.chunk","created":1741292100,"model":"gpt-5","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"resp_c2","object":"chat.completion.chunk","created":1741292100,"model":"gpt-5","choices":[{"index":0,"delta":{"content":"Checking"},"finish_reason":null}]}
+
+data: {"id":"resp_c2","object":"chat.completion.chunk","created":1741292100,"model":"gpt-5","choices":[{"index":0,"delta":{"content":" weather"},"finish_reason":null}]}
+
+data: {"id":"resp_c2","object":"chat.completion.chunk","created":1741292100,"model":"gpt-5","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"id":"call_c2","type":"function","function":{"name":"get_weather","arguments":"{\"city\":\"Paris\"}"}}]},"finish_reason":null}]}
+
+data: {"id":"resp_c2","object":"chat.completion.chunk","created":1741292100,"model":"gpt-5","choices":[{"index":0,"delta":{},"finish_reason":"tool_calls"}]}
+
+data: {"id":"resp_c2","object":"chat.completion.chunk","created":1741292100,"model":"gpt-5","choices":[],"usage":{"completion_tokens":12,"completion_tokens_details":{"reasoning_tokens":0},"prompt_tokens":30,"prompt_tokens_details":{"cached_tokens":0,"cache_write_tokens":0},"total_tokens":42}}
+
+data: [DONE]
+

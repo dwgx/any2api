@@ -1,0 +1,3 @@
+data: {"candidates": [{"content": {"role": "model", "parts": [{"functionCall": {"name": "gc_thermal_probe", "args": {"city":"Oslo"}}}]}, "finishReason": null, "index": 0}]}
+
+data: {"candidates": [{"content": {"role": "model", "parts": [{"functionCall": {"name": "get_time", "args": {"city":"Oslo"}}}, {"functionCall": {"name": "get_units", "args": {}}}]}, "finishReason": "STOP", "index": 0}], "usageMetadata": {"promptTokenCount": 12, "candidatesTokenCount": 8, "totalTokenCount": 20}}

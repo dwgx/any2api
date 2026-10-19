@@ -1,0 +1,393 @@
+/* ============================================================================
+ * controls.css —— Any2API 控件单一来源（聊天 .ctl* + 管理面 .ad-ctl* / .ad-seg）
+ * ----------------------------------------------------------------------------
+ * 全站唯一一套控件几何与四态（聊天面 index.html 与管理面 admin.html 都加载本文件；
+ * 管理面 admin.css 排在本文件之后，只提供 --ad-* 令牌与布局/数据类）：
+ *   高度 28（.ctl / .ad-ctl）· 32（.ctl-lg / .ad-ctl.lg）· 24（.ctl-sm / .ad-ctl.sm）
+ *   圆角 8（控件）· 10（浮层/容器：.ctl-menu、管理面分段轨道 --ad-ctl-r-lg）
+ *   1px 边框；hover / active / focus-visible / disabled 四态一致
+ *
+ * 令牌来自 style.css 的 :root（--df-ctl-* / --cds-*）。本文件排在 style.css
+ * 之后加载（见 index.html 注入顺序），因此只声明原语与包装，不重定义主题令牌；
+ * 现有组件类仍可覆盖更具体的几何（例如 .send-btn 的 50% 圆）。
+ * 管理面别名（§7）一律「管理面令牌优先、聊天令牌兜底」：var(--ad-x, var(--ctl-y))，
+ * 因此 admin.html 不需要、也不允许再有第二套 .ad-ctl/.ad-seg 几何。
+ * 零外部资源；下拉箭头为内联 data: SVG；无 emoji。
+ * ========================================================================== */
+
+:root {
+  --ctl-h: var(--df-ctl-h, 28px);
+  --ctl-h-lg: var(--df-ctl-h-lg, 32px);
+  --ctl-h-sm: var(--df-ctl-h-nested, 24px);
+  --ctl-r: var(--df-ctl-radius, 8px);
+  --ctl-r-pop: var(--df-pop-radius, 10px);
+  --ctl-border-w: 1px;
+  --ctl-border-color: var(--cds-border);
+  --ctl-border-strong: var(--cds-border-strong, var(--cds-border));
+  --ctl-bg: var(--cds-surface-1);
+  --ctl-bg-ghost: transparent;
+  --ctl-bg-hover: var(--cds-fill-ghost-hover);
+  --ctl-bg-active: var(--cds-fill-ghost-selected);
+  --ctl-fg: var(--cds-text-primary);
+  --ctl-fg-muted: var(--cds-text-secondary);
+  --ctl-accent: var(--cds-fill-accent);
+  --ctl-on-accent: var(--cds-on-accent, #fff);
+  --ctl-focus: var(--cds-focus-shadow);
+  --ctl-disabled-opacity: .45;
+  --ctl-dur: var(--df-dur-fast, .12s);
+  --ctl-ease: var(--cds-ease-out, cubic-bezier(.165, .84, .44, 1));
+}
+
+/* ---------------------------------------------------------------------------
+ * 1. 基础包装 .ctl —— 高度 / 圆角 / 1px 边框 / 四态
+ * ------------------------------------------------------------------------- */
+.ctl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--ctl-h);
+  padding: 0 10px;
+  border: var(--ctl-border-w) solid var(--ctl-border-color);
+  border-radius: var(--ctl-r);
+  background: var(--ctl-bg);
+  color: var(--ctl-fg);
+  font: 400 13px/19px var(--cds-font-sans);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    background-color var(--ctl-dur) var(--ctl-ease),
+    border-color var(--ctl-dur) var(--ctl-ease),
+    color var(--ctl-dur) var(--ctl-ease),
+    box-shadow var(--ctl-dur) var(--ctl-ease);
+}
+.ctl:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--ctl-bg-hover);
+  border-color: var(--ctl-border-strong);
+}
+.ctl:active:not(:disabled):not([aria-disabled="true"]) { background: var(--ctl-bg-active); }
+.ctl:focus-visible { outline: none; box-shadow: var(--ctl-focus); }
+.ctl:disabled,
+.ctl[aria-disabled="true"] { opacity: var(--ctl-disabled-opacity); cursor: default; }
+
+/* 尺寸档：24 / 28 / 32 —— 半径不放大（三档都是 8px，与 .ad-ctl 同一契约） */
+.ctl-sm {
+  height: var(--ctl-h-sm);
+  padding: 0 8px;
+  border-radius: var(--ctl-r);
+  font-size: 12px;
+}
+.ctl-lg {
+  height: var(--ctl-h-lg);
+  padding: 0 14px;
+  border-radius: var(--ctl-r);
+  font-size: 13.5px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. 按钮 .ctl-btn —— 幽灵默认 + primary / danger 变体
+ * ------------------------------------------------------------------------- */
+.ctl-btn {
+  background: var(--ctl-bg-ghost);
+  border-color: transparent;
+  color: var(--ctl-fg-muted);
+}
+.ctl-btn:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--ctl-bg-hover);
+  border-color: transparent;
+  color: var(--ctl-fg);
+}
+.ctl-btn:active:not(:disabled):not([aria-disabled="true"]) { background: var(--ctl-bg-active); }
+.ctl-btn[data-variant="primary"] {
+  background: var(--ctl-accent);
+  border-color: transparent;
+  color: var(--ctl-on-accent);
+}
+.ctl-btn[data-variant="primary"]:hover:not(:disabled) { filter: brightness(1.04); }
+.ctl-btn[data-variant="danger"] {
+  background: var(--cds-fill-danger);
+  border-color: transparent;
+  color: #fff;
+}
+.ctl-btn[data-variant="danger"]:hover:not(:disabled) { filter: brightness(1.04); }
+.ctl-icon { width: var(--ctl-h); padding: 0; flex: none; }
+.ctl-round { border-radius: 50%; }
+
+/* ---------------------------------------------------------------------------
+ * 3. 分段控件 .ctl-seg / .ad-seg —— 轨道 28 / 1px 边框 / 内项 24
+ *    两面各一条规则、逐字同源（聊天面兜底令牌在管理面被 --ad-* 覆盖）；
+ *    容器圆角 10px 走 --ad-ctl-r-lg，聊天面兜底 --ctl-r（8px，聊天面既有观感不变）。
+ * ------------------------------------------------------------------------- */
+.ctl-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: var(--ad-ctl-h, var(--ctl-h));
+  padding: 1px;
+  border: var(--ctl-border-w) solid var(--ad-border, var(--ctl-border-color));
+  border-radius: var(--ad-ctl-r-lg, var(--ctl-r));
+  background: var(--ad-surface-2, var(--cds-alpha-1));
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ad-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: var(--ad-ctl-h, var(--ctl-h));
+  padding: 1px;
+  border: var(--ctl-border-w) solid var(--ad-border, var(--ctl-border-color));
+  border-radius: var(--ad-ctl-r-lg, var(--ctl-r));
+  background: var(--ad-surface-2, var(--cds-alpha-1));
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ctl-seg-item,
+.ad-seg button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--ad-ctl-h, var(--ctl-h)) - 4px);
+  padding: 0 10px;
+  border: var(--ctl-border-w) solid transparent;
+  border-radius: var(--ad-ctl-r, var(--ctl-r));
+  background: transparent;
+  color: var(--ad-text-dim, var(--ctl-fg-muted));
+  font: 400 12px/1 var(--ad-font, var(--cds-font-sans));
+  cursor: pointer;
+  transition:
+    background-color var(--ctl-dur) var(--ctl-ease),
+    color var(--ctl-dur) var(--ctl-ease),
+    box-shadow var(--ctl-dur) var(--ctl-ease);
+}
+.ctl-seg-item:hover:not(:disabled) { color: var(--ctl-fg); }
+.ctl-seg-item:active:not(:disabled) { background: var(--ctl-bg-active); }
+.ctl-seg-item:focus-visible,
+.ad-seg button:focus-visible { outline: none; box-shadow: var(--ad-focus-ring, var(--ctl-focus)); }
+.ctl-seg-item:disabled,
+.ad-seg button:disabled { opacity: var(--ctl-disabled-opacity); cursor: default; }
+.ctl-seg-item[aria-selected="true"],
+.ctl-seg-item.on,
+.ctl-seg-item[data-active] {
+  background: var(--cds-surface-3);
+  color: var(--ctl-fg);
+  box-shadow: var(--cds-shadow-sm, none), 0 0 0 1px var(--ctl-border-color);
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. 下拉 .ctl-select —— 原生 select 包装（外观统一 + 内联 SVG 箭头）
+ * ------------------------------------------------------------------------- */
+.ctl-select {
+  -webkit-appearance: none;
+  appearance: none;
+  height: var(--ctl-h);
+  padding: 0 28px 0 10px;
+  border: var(--ctl-border-w) solid var(--ctl-border-color);
+  border-radius: var(--ctl-r);
+  background-color: var(--ctl-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath d='M4 6.4 8 10.4l4-4' fill='none' stroke='%236b6b6b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  background-size: 12px 12px;
+  color: var(--ctl-fg);
+  font: 400 13px/19px var(--cds-font-sans);
+  cursor: pointer;
+  transition:
+    background-color var(--ctl-dur) var(--ctl-ease),
+    border-color var(--ctl-dur) var(--ctl-ease),
+    box-shadow var(--ctl-dur) var(--ctl-ease);
+}
+.ctl-select:hover:not(:disabled) { background-color: var(--ctl-bg-hover); border-color: var(--ctl-border-strong); }
+.ctl-select:focus-visible { outline: none; box-shadow: var(--ctl-focus); }
+.ctl-select:disabled { opacity: var(--ctl-disabled-opacity); cursor: default; }
+.ctl-select option { background: var(--cds-surface-popover); color: var(--ctl-fg); }
+
+/* ---------------------------------------------------------------------------
+ * 5. 滑块 .ctl-slider —— 28px 行高 / 4px 轨道 / 16px 拇指
+ * ------------------------------------------------------------------------- */
+.ctl-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: var(--ctl-h);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.ctl-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border: var(--ctl-border-w) solid var(--ctl-border-color);
+  border-radius: 999px;
+  background: var(--cds-alpha-2);
+}
+.ctl-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -7px;
+  border: var(--ctl-border-w) solid var(--ctl-border-strong);
+  border-radius: 50%;
+  background: var(--cds-surface-0, #fff);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--cds-gray-900, #000) 20%, transparent);
+  transition: box-shadow var(--ctl-dur) var(--ctl-ease), border-color var(--ctl-dur) var(--ctl-ease);
+}
+.ctl-slider:hover:not(:disabled)::-webkit-slider-thumb { border-color: var(--ctl-fg-muted); }
+.ctl-slider:focus-visible { outline: none; }
+.ctl-slider:focus-visible::-webkit-slider-thumb { box-shadow: var(--ctl-focus); }
+.ctl-slider:disabled { opacity: var(--ctl-disabled-opacity); cursor: default; }
+.ctl-slider::-moz-range-track {
+  height: 4px;
+  border: var(--ctl-border-w) solid var(--ctl-border-color);
+  border-radius: 999px;
+  background: var(--cds-alpha-2);
+}
+.ctl-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: var(--ctl-border-w) solid var(--ctl-border-strong);
+  border-radius: 50%;
+  background: var(--cds-surface-0, #fff);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--cds-gray-900, #000) 20%, transparent);
+}
+.ctl-slider:focus-visible::-moz-range-thumb { box-shadow: var(--ctl-focus); }
+
+/* ---------------------------------------------------------------------------
+ * 6. 菜单浮层 .ctl-menu —— 10px 圆角 / 1px 边框（与 .menu-popup 叠加）
+ * ----------------------------------------------------------------------------
+ * 浮层是容器不是控件：即使误挂 .ctl，也绝不继承它的 28px 固定高与 0 10px 内边距
+ * （W80-1：`.menu-popup.ctl` 被裁成 28px 一条的根因）。本文件排在 style.css 之后，
+ * 因此这条守卫同时压过 .ctl（同文件靠前）与 style.css 的 .menu-popup 底色 padding。
+ * 摘掉守卫 + 挂回 .ctl 即修复前形态 —— lane 冒烟 A2A-L19-W80-1 的负控正是这样复红的。
+ * ------------------------------------------------------------------------- */
+.ctl-menu,
+.menu-popup,
+.menu-popup.ctl {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: min(calc(100vh - 16px), 640px);
+  overflow-y: auto;                       /* 超长列表在浮层内滚动，绝不被固定高裁切 */
+  overflow-x: hidden;
+  padding: 4px;
+}
+.ctl-menu {
+  border: var(--ctl-border-w) solid var(--ctl-border-color);
+  border-radius: var(--ctl-r-pop);
+  background: var(--cds-surface-popover);
+  box-shadow: var(--cds-shadow-popover);
+}
+
+/* ---------------------------------------------------------------------------
+ * 7. 管理面别名 .ad-ctl / .ad-seg —— 与 §1–§3 同一套几何与四态（唯一来源）
+ * ----------------------------------------------------------------------------
+ * 管理面 admin.html 在加载本文件后再加载 admin.css（后者只给 --ad-* 令牌与布局/
+ * 数据类，不得再定义 .ad-ctl 系列 / .ad-seg 几何）。别名一律「管理面令牌优先、聊天令牌
+ * 兜底」：var(--ad-x, var(--ctl-y))——管理面上取暖色/管理面色，聊天面上自动退回
+ * --ctl-* 原语，因此同一份规则在两面都合法。
+ * 变体 primary/danger/ghost/unimpl 只换语义色，高度/padding/圆角/过渡/焦点环与
+ * §1–§2 完全同源；四态齐全（hover / active / focus-visible / disabled）。
+ * ------------------------------------------------------------------------- */
+
+/* 28px 基座（与 .ctl 同高同圆角同边框；.sm 24px、.lg 32px） */
+.ad-ctl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--ad-ctl-h, var(--ctl-h));
+  min-width: 0;
+  padding: 0 10px;
+  border: var(--ctl-border-w) solid var(--ad-border-strong, var(--ctl-border-strong));
+  border-radius: var(--ad-ctl-r, var(--ctl-r));
+  background: var(--ad-surface, var(--ctl-bg));
+  color: var(--ad-text, var(--ctl-fg));
+  font: 400 13px/19px var(--ad-font, var(--cds-font-sans));
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--ctl-dur) var(--ctl-ease),
+    border-color var(--ctl-dur) var(--ctl-ease),
+    color var(--ctl-dur) var(--ctl-ease),
+    box-shadow var(--ctl-dur) var(--ctl-ease);
+}
+.ad-ctl:hover:not([disabled]):not([aria-disabled="true"]) {
+  background: var(--ad-surface-2, var(--ctl-bg-hover));
+  border-color: var(--ad-border-strong, var(--ctl-border-strong));
+}
+.ad-ctl:active:not([disabled]):not([aria-disabled="true"]) {
+  background: var(--ad-surface-3, var(--ctl-bg-active));
+}
+.ad-ctl:focus-visible { outline: none; box-shadow: var(--ad-focus-ring, var(--ctl-focus)); }
+.ad-ctl[disabled],
+.ad-ctl[aria-disabled="true"] { opacity: var(--ctl-disabled-opacity); cursor: not-allowed; }
+
+.ad-ctl.sm {
+  height: var(--ad-ctl-h-sm, var(--ctl-h-sm));
+  padding: 0 8px;
+  border-radius: var(--ad-ctl-r, var(--ctl-r));
+  font-size: 12px;
+}
+.ad-ctl.lg {
+  height: var(--ad-ctl-h-lg, var(--ctl-h-lg));
+  padding: 0 14px;
+  border-radius: var(--ad-ctl-r, var(--ctl-r));
+  font-size: 13.5px;
+}
+/* 表格内紧凑下拉：只压宽度/字号，不另立几何（高度仍由 .sm 档决定 = 24px）。 */
+.ad-ctl.cd-sel { width: 68px; padding: 0 6px; font-size: 11.5px; }
+
+/* 变体：语义色各自保留，几何/状态沿用上面的基座规则 */
+.ad-ctl.primary {
+  background: var(--ad-accent, var(--ctl-accent));
+  border-color: var(--ad-accent, var(--ctl-accent));
+  color: var(--ad-on-accent, var(--ctl-on-accent));
+}
+.ad-ctl.primary:hover:not([disabled]):not([aria-disabled="true"]) {
+  background: var(--ad-accent-hover, var(--ad-accent, var(--ctl-accent)));
+  border-color: var(--ad-accent-hover, var(--ad-accent, var(--ctl-accent)));
+}
+.ad-ctl.primary:active:not([disabled]):not([aria-disabled="true"]) {
+  background: var(--ad-accent-hover, var(--ad-accent, var(--ctl-accent)));
+}
+.ad-ctl.danger {
+  color: var(--ad-err, var(--cds-fill-danger));
+  border-color: var(--ad-err, var(--cds-fill-danger));
+  background: var(--ad-err-soft, var(--ctl-bg));
+}
+.ad-ctl.danger:hover:not([disabled]):not([aria-disabled="true"]) {
+  background: color-mix(in srgb, var(--ad-err-soft, var(--ctl-bg)) 74%,
+                       var(--ad-err, var(--cds-fill-danger)) 12%);
+}
+.ad-ctl.danger:active:not([disabled]):not([aria-disabled="true"]) {
+  background: color-mix(in srgb, var(--ad-err-soft, var(--ctl-bg)) 60%,
+                       var(--ad-err, var(--cds-fill-danger)) 20%);
+}
+.ad-ctl.ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--ad-text-dim, var(--ctl-fg-muted));
+}
+.ad-ctl.ghost:hover:not([disabled]):not([aria-disabled="true"]) {
+  background: var(--ad-surface-2, var(--ctl-bg-hover));
+  color: var(--ad-text, var(--ctl-fg));
+}
+/* 未实现的动作：虚线边框 + disabled 档不透明度，且 DOM 里就是 disabled
+   （绝不假装成功；不透明度与 .ctl:disabled 同一个令牌）。 */
+.ad-ctl.unimpl {
+  opacity: var(--ctl-disabled-opacity);
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+/* 分段（usage scope 切换）：轨道 28 / 内段 24 —— 与 §3 同规则，只换色 */
+.ad-seg button:hover:not(:disabled) {
+  background: var(--ad-surface-3, var(--ctl-bg-active));
+  color: var(--ad-text, var(--ctl-fg));
+}
+.ad-seg button[aria-selected="true"] {
+  background: var(--ad-surface, var(--cds-surface-3));
+  color: var(--ad-text, var(--ctl-fg));
+  border-color: var(--ad-border-strong, var(--ctl-border-strong));
+  font-weight: 600;
+}

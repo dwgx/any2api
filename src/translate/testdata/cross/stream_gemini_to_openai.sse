@@ -1,0 +1,5 @@
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": "I"}]}, "index": 0}], "modelVersion": "gemini-2.5-flash", "responseId": "r-stream"}
+
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": " cannot do that here"}]}, "index": 0}], "modelVersion": "gemini-2.5-flash", "responseId": "r-stream"}
+
+data: {"candidates": [{"content": {"role": "model", "parts": []}, "finishReason": "STOP", "index": 0}], "modelVersion": "gemini-2.5-flash", "responseId": "r-stream", "usageMetadata": {"promptTokenCount": 27, "candidatesTokenCount": 32, "totalTokenCount": 59}}

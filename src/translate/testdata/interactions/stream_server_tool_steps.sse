@@ -1,0 +1,32 @@
+event: interaction.created
+data: {"interaction":{"id":"v1_srv","status":"in_progress","object":"interaction","model":"gemini-3-flash-preview"},"event_type":"interaction.created"}
+
+event: step.start
+data: {"index":0,"step":{"type":"google_search_call","id":"gs_1","arguments":{"query":"capital of France"}},"event_type":"step.start"}
+
+event: step.delta
+data: {"index":0,"delta":{"type":"google_search_call","query":"capital of France"},"event_type":"step.delta"}
+
+event: step.stop
+data: {"index":0,"event_type":"step.stop"}
+
+event: step.start
+data: {"index":1,"step":{"type":"google_search_result"},"event_type":"step.start"}
+
+event: step.stop
+data: {"index":1,"event_type":"step.stop"}
+
+event: step.start
+data: {"index":2,"step":{"type":"model_output"},"event_type":"step.start"}
+
+event: step.delta
+data: {"index":2,"delta":{"type":"text","text":"Paris."},"event_type":"step.delta"}
+
+event: step.stop
+data: {"index":2,"event_type":"step.stop"}
+
+event: interaction.completed
+data: {"interaction":{"id":"v1_srv","status":"completed","usage":{"total_input_tokens":5,"total_output_tokens":3,"total_tokens":8},"created":"2026-05-12T18:44:51Z","updated":"2026-05-12T18:44:51Z","object":"interaction","model":"gemini-3-flash-preview"},"event_type":"interaction.completed"}
+
+event: done
+data: [DONE]

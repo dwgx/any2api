@@ -1,0 +1,4 @@
+data: {"candidates":[{"content":{"parts":[{"functionCall":{"args":{"city":"Paris"},"id":"call_a","name":"get_weather"}}],"role":"model"},"index":0}],"modelVersion":"claude-sonnet-4-5","responseId":"msg_h2"}
+
+data: {"candidates":[{"content":{"parts":[],"role":"model"},"finishReason":"STOP","index":0}],"modelVersion":"claude-sonnet-4-5","responseId":"msg_h2","usageMetadata":{"candidatesTokenCount":9,"promptTokenCount":5,"totalTokenCount":14}}
+

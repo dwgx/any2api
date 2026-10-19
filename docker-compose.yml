@@ -1,0 +1,13 @@
+services:
+  any2api:
+    build: .
+    image: any2api:local
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - ./config.yaml:/etc/any2api/config.yaml:ro
+      - any2api-data:/data
+    restart: unless-stopped
+
+volumes:
+  any2api-data:

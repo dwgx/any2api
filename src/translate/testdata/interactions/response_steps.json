@@ -1,0 +1,33 @@
+{
+  "id": "int_123",
+  "object": "interaction",
+  "status": "requires_action",
+  "model": "gemini-3-flash-preview",
+  "created": "2026-05-12T18:44:51Z",
+  "updated": "2026-05-12T18:44:51Z",
+  "steps": [
+    {
+      "type": "thought",
+      "signature": "thought_sig_abcd1234",
+      "summary": [{ "type": "text", "text": "The user asks about Boston weather." }]
+    },
+    {
+      "type": "model_output",
+      "content": [{ "type": "text", "text": "Let me check the weather for you." }]
+    },
+    {
+      "type": "function_call",
+      "id": "call_98231",
+      "name": "get_weather",
+      "arguments": { "location": "Boston, MA" }
+    }
+  ],
+  "usage": {
+    "total_input_tokens": 11,
+    "total_output_tokens": 90,
+    "total_tokens": 101,
+    "total_cached_tokens": 0,
+    "total_thought_tokens": 245,
+    "total_tool_use_tokens": 0
+  }
+}

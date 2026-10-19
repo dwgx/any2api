@@ -1,0 +1,6 @@
+{
+  "model": "gemini-3-flash-preview",
+  "previous_interaction_id": "v1_abc123",
+  "store": true,
+  "input": [{ "type": "user_input", "content": [{ "type": "text", "text": "and now?" }] }]
+}

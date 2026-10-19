@@ -1,0 +1,34 @@
+{
+  "model": "gemini-3-flash-preview",
+  "messages": [
+    { "role": "system", "content": "Be terse." },
+    { "role": "user", "content": "Turn the lights down" },
+    {
+      "role": "assistant",
+      "content": "Sure.",
+      "tool_calls": [
+        {
+          "id": "call_1",
+          "type": "function",
+          "function": { "name": "set_light_values", "arguments": "{\"brightness\":30}" }
+        }
+      ]
+    },
+    { "role": "tool", "tool_call_id": "call_1", "name": "set_light_values", "content": "{\"ok\":true}" }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "set_light_values",
+        "description": "Set light brightness",
+        "parameters": { "type": "object", "properties": { "brightness": { "type": "integer" } } }
+      }
+    }
+  ],
+  "tool_choice": "required",
+  "max_tokens": 128,
+  "temperature": 0.2,
+  "stop": ["END"],
+  "stream": true
+}

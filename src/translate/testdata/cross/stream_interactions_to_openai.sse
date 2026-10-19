@@ -1,0 +1,23 @@
+event: interaction.created
+data: {"interaction":{"id":"v1_cross","status":"in_progress","object":"interaction","model":"gemini-3-flash-preview","created":"2026-05-12T18:44:51Z"},"event_type":"interaction.created"}
+
+event: interaction.status_update
+data: {"interaction_id":"v1_cross","status":"in_progress","event_type":"interaction.status_update"}
+
+event: step.start
+data: {"index":0,"step":{"type":"model_output"},"event_type":"step.start"}
+
+event: step.delta
+data: {"index":0,"delta":{"type":"text","text":"Hello"},"event_type":"step.delta"}
+
+event: step.delta
+data: {"index":0,"delta":{"type":"text","text":" world"},"event_type":"step.delta"}
+
+event: step.stop
+data: {"index":0,"event_type":"step.stop"}
+
+event: interaction.completed
+data: {"interaction":{"id":"v1_cross","status":"completed","usage":{"total_input_tokens":9,"total_output_tokens":2,"total_tokens":11},"created":"2026-05-12T18:44:51Z","updated":"2026-05-12T18:44:51Z","object":"interaction","model":"gemini-3-flash-preview"},"event_type":"interaction.completed"}
+
+event: done
+data: [DONE]

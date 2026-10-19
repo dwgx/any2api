@@ -1,0 +1,3 @@
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": "Let me think", "thought": true}, {"text": "Answer"}]}, "finishReason": null, "index": 0}]}
+
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": " more"}]}, "finishReason": "STOP", "index": 0}], "usageMetadata": {"promptTokenCount": 7, "candidatesTokenCount": 5, "thoughtsTokenCount": 3, "totalTokenCount": 12}}

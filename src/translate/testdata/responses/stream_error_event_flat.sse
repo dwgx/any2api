@@ -1,0 +1,11 @@
+event: response.created
+data: {"type":"response.created","response":{"id":"resp_gc20","object":"response","created_at":1742000000,"status":"in_progress","model":"gc-model","output":[],"usage":null},"sequence_number":0}
+
+event: response.output_item.added
+data: {"type":"response.output_item.added","output_index":0,"item":{"id":"msg_gc20","type":"message","status":"in_progress","role":"assistant","content":[]},"sequence_number":1}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","item_id":"msg_gc20","output_index":0,"content_index":0,"delta":"partial","sequence_number":2}
+
+event: error
+data: {"type":"error","code":"server_error","message":"An error occurred while processing your request.","param":null,"sequence_number":3}

@@ -1,0 +1,54 @@
+{
+  "id": "resp_c1",
+  "object": "response",
+  "created_at": 1741292000,
+  "status": "completed",
+  "model": "gpt-5",
+  "output": [
+    {
+      "type": "reasoning",
+      "status": "completed",
+      "summary": [
+        {
+          "type": "summary_text",
+          "text": "Check weather."
+        }
+      ],
+      "encrypted_content": "enc_c1"
+    },
+    {
+      "type": "message",
+      "status": "completed",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "It is 22C.",
+          "annotations": [],
+          "logprobs": []
+        }
+      ]
+    },
+    {
+      "type": "function_call",
+      "status": "completed",
+      "call_id": "call_c1",
+      "name": "get_weather",
+      "arguments": "{\"city\":\"Paris\"}"
+    }
+  ],
+  "error": null,
+  "incomplete_details": null,
+  "usage": {
+    "input_tokens": 100,
+    "input_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "output_tokens": 20,
+    "output_tokens_details": {
+      "reasoning_tokens": 5
+    },
+    "total_tokens": 120
+  }
+}

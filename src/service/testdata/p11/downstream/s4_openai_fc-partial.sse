@@ -1,0 +1,10 @@
+data: {"id":"r-p11-partial","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"r-p11-partial","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"id":"call_synth_6404118efc96615a059a2993dc4d3266","type":"function","function":{"name":"get_weather","arguments":"{\"city\":\"San Francisco\",\"days\":3,\"units\":\"metric\"}"}}]},"finish_reason":null}]}
+
+data: {"id":"r-p11-partial","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[{"index":0,"delta":{},"finish_reason":"tool_calls"}]}
+
+data: {"id":"r-p11-partial","object":"chat.completion.chunk","created":0,"model":"gemini-2.5-flash","choices":[],"usage":{"completion_tokens":5,"prompt_tokens":12,"total_tokens":17}}
+
+data: [DONE]
+

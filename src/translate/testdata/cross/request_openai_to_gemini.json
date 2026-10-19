@@ -1,0 +1,17 @@
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "system", "content": "S1"},
+    {"role": "user", "content": "u1"},
+    {"role": "assistant", "content": "a1", "tool_calls": [{"id": "call_a", "type": "function", "function": {"name": "get_weather", "arguments": "{\"city\":\"Paris\"}"}}]},
+    {"role": "tool", "tool_call_id": "call_a", "content": "{\"temp\":18}"},
+    {"role": "system", "content": "S2-mid"}
+  ],
+  "tools": [
+    {"type": "function", "function": {"name": "get_weather", "description": "d", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"]}}}
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 256,
+  "temperature": 0.5,
+  "stop": ["END"]
+}

@@ -1,0 +1,7 @@
+{
+  "model": "gpt-5",
+  "input": "Continue where we left off.",
+  "previous_response_id": "resp_prev_1",
+  "conversation": {"id": "conv_1"},
+  "background": true
+}

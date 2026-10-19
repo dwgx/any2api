@@ -1,0 +1,7 @@
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": "I"}]}, "finishReason": null, "index": 0}], "usageMetadata": {"promptTokenCount": 101, "totalTokenCount": 101}}
+
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": " cannot do that"}]}, "finishReason": null, "index": 0}], "usageMetadata": {"promptTokenCount": 101, "totalTokenCount": 101}}
+
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": " here"}]}, "finishReason": null, "index": 0}], "usageMetadata": {"promptTokenCount": 27, "candidatesTokenCount": 32, "totalTokenCount": 59}}
+
+data: {"candidates": [{"content": {"role": "model", "parts": []}, "finishReason": "STOP", "index": 0}], "usageMetadata": {"promptTokenCount": 27, "candidatesTokenCount": 32, "totalTokenCount": 59}}

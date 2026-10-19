@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="overview">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'">
+<title>Any2API 后台管理</title>
+<!--
+  Any2API 后台管理 dashboard —— 实时面（零构建、零外部资源、无内联脚本）
+  托管：GET /ui/admin.html（静态资产，公开）｜数据：/admin/*，全部经 adminAuth
+        （Authorization: Bearer 或 X-Management-Key；未配 admin_key = 404 非 401）
+  页面：overview / upstreams / accounts / traffic / sessions / usage / audit / models / providers / config（#/page 路由）
+  数据层：admin-data.js（唯一 fetch 面）→ window.A2A_LIVE → admin.js 的 render 函数
+  密钥：sessionStorage 的 any2api.admin.key（不进 localStorage / URL / DOM）
+  布局：240px 侧栏 + 56px 顶栏 + 1440px 内容区；概览 = 4 项健康条 + 5 张 KPI + 2/3 趋势 + 1/3 告警 + 全宽事件
+  启动：首帧显示 #boot 启动层 → 首次装载（或落锁）后收掉（最短 300ms；prefers-reduced-motion 关动画）
+  样式：controls.css（控件单一来源：.ctl* 与 .ad-ctl* / .ad-seg 同几何 28/32/24、8/10px、1px、四态）
+        → admin.css（--ad-* 令牌、布局、数据类）。顺序不可颠倒：令牌在 computed-value 时解析。
+-->
+<link rel="stylesheet" href="controls.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<!-- 启动层：首帧 → 首次装载 / 落锁之间的过渡（构造即显示，由 admin.js 加 .boot-done 收掉；
+     最短展示 300ms；prefers-reduced-motion 下不做动画。数据未就绪时绝不让空壳先露面）。 -->
+<div class="boot" id="boot" role="status" aria-live="polite" aria-label="正在初始化后台管理">
+  <div class="boot-card">
+    <span class="boot-mark" aria-hidden="true">A2</span>
+    <div class="boot-bar" aria-hidden="true"><i></i></div>
+    <div class="boot-text" id="boot-text">正在初始化后台管理…</div>
+  </div>
+</div>
+
+<div class="app">
+
+  <nav class="nav" id="nav" aria-label="后台导航">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">A2</span>
+      <span class="brand-text"><b>Any2API</b><span>运营后台</span></span>
+    </div>
+
+    <div class="nav-group">运行</div>
+    <a class="item" href="#/overview" data-page="overview"><span class="nav-label">总览</span><span class="cnt" id="nav-cnt-alerts"></span></a>
+    <a class="item" href="#/upstreams" data-page="upstreams"><span class="nav-label">上游与池</span><span class="cnt" id="nav-cnt-upstreams"></span></a>
+    <a class="item" href="#/accounts" data-page="accounts"><span class="nav-label">账号与代理</span><span class="cnt" id="nav-cnt-accounts"></span></a>
+    <a class="item" href="#/traffic" data-page="traffic"><span class="nav-label">请求</span><span class="cnt" id="nav-cnt-requests"></span></a>
+    <a class="item" href="#/sessions" data-page="sessions"><span class="nav-label">会话</span><span class="cnt" id="nav-cnt-sessions"></span></a>
+
+    <div class="nav-group">账与合规</div>
+    <a class="item" href="#/usage" data-page="usage"><span class="nav-label">用量与成本</span></a>
+    <a class="item" href="#/audit" data-page="audit"><span class="nav-label">审计与告警</span><span class="cnt" id="nav-cnt-audit"></span></a>
+
+    <div class="nav-group">配置</div>
+    <a class="item" href="#/models" data-page="models"><span class="nav-label">模型与任务</span></a>
+    <a class="item" href="#/providers" data-page="providers"><span class="nav-label">服务商</span><span class="cnt" id="nav-cnt-providers"></span></a>
+    <a class="item" href="#/config" data-page="config"><span class="nav-label">配置与系统</span></a>
+
+    <div class="nav-foot">
+      <div class="nav-live"><span class="dot" aria-hidden="true"></span><span id="nav-build">build —</span></div>
+      <div class="nav-note">数据只来自本服务 /admin/*；缺失显示「未提供」，不补零。数据源见各页页脚。</div>
+    </div>
+  </nav>
+
+  <div class="shell">
+    <header class="topbar">
+      <button class="ad-ctl ghost hamb" id="hamb" aria-label="展开导航">≡</button>
+      <div class="where"><span class="crumb" id="where-crumb">Any2API</span><span class="sep">/</span><b id="where-page">总览</b></div>
+      <div class="spacer"></div>
+      <div class="meta">
+        <span class="live-meta" id="live-via">等待首次刷新…</span>
+        <span id="top-status" class="badge ok">live</span>
+        <span class="mono opt opt-build" id="top-build">build —</span>
+        <span class="mono opt opt-refresh" id="top-refresh">未刷新</span>
+        <button class="ad-ctl sm" id="refresh-btn" aria-label="立即刷新">刷新</button>
+        <button class="ad-ctl sm" id="theme-btn" aria-label="切换深浅主题">主题</button>
+        <button class="ad-ctl sm danger" id="killswitch-btn" disabled title="未实现：kill switch = 改配置 public.enabled=false + 重启，无 HTTP 面">Kill switch</button>
+      </div>
+    </header>
+
+    <main class="main" id="main-content">
+      <section id="page-overview" class="page" aria-labelledby="h-overview"></section>
+      <section id="page-upstreams" class="page hidden" aria-labelledby="h-upstreams"></section>
+      <section id="page-accounts" class="page hidden" aria-labelledby="h-accounts"></section>
+      <section id="page-traffic" class="page hidden" aria-labelledby="h-traffic"></section>
+      <section id="page-sessions" class="page hidden" aria-labelledby="h-sessions"></section>
+      <section id="page-usage" class="page hidden" aria-labelledby="h-usage"></section>
+      <section id="page-audit" class="page hidden" aria-labelledby="h-audit"></section>
+      <section id="page-models" class="page hidden" aria-labelledby="h-models"></section>
+      <section id="page-providers" class="page hidden" aria-labelledby="h-providers"></section>
+      <section id="page-config" class="page hidden" aria-labelledby="h-config"></section>
+    </main>
+  </div>
+</div>
+
+<!-- 门控层：无密钥 = 输入框；401 = 同层重锁；404 = 管理面未启用 -->
+<div class="lock" id="lock" role="dialog" aria-modal="true" aria-labelledby="lock-title" hidden>
+  <form class="lock-card" id="lock-form">
+    <h1 id="lock-title">Any2API 后台管理</h1>
+    <p class="dim" id="lock-lead">需要管理密钥（<code>admin_key</code>）。密钥只留在本会话（sessionStorage），随每个 <code>/admin/*</code> 请求以 <code>X-Management-Key</code> 头发送。</p>
+    <div id="lock-fields">
+      <label for="lock-key">管理密钥</label>
+      <input id="lock-key" type="password" autocomplete="off" spellcheck="false" placeholder="admin key">
+    </div>
+    <div class="lock-actions">
+      <button class="ad-ctl primary" type="submit" id="lock-connect">连接</button>
+      <span class="lock-msg" id="lock-msg" role="alert"></span>
+    </div>
+    <div class="lock-hint faint" id="lock-hint">未配置 <code>admin_key</code> 时管理面整体不注册：/admin/* 回 404。</div>
+  </form>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" role="dialog" aria-label="详情抽屉">
+  <header>
+    <h2 id="drawer-title">请求详情</h2>
+    <div class="spacer"></div>
+    <button class="ad-ctl sm" id="drawer-close">关闭</button>
+  </header>
+  <div class="body" id="drawer-body"></div>
+</aside>
+
+<div class="dialog" id="dialog" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title">
+  <header id="dialog-title">确认</header>
+  <div class="body" id="dialog-body"></div>
+  <footer>
+    <button class="ad-ctl" id="dialog-cancel">取消</button>
+    <button class="ad-ctl danger" id="dialog-ok">确认执行</button>
+  </footer>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="admin-data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+{
+ "provenance": {
+  "generated_by": "tmp/lanes/W41-sentinel/gen_vectors.py",
+  "date": "2026-10-15",
+  "sources": {
+   "pow2025": "leetanshaj/openai-sentinel@6c3a0ed proof_of_work.py:31-48 (imported unmodified)",
+   "pow2025b": "lanqian528/chat2api@a63a90c chatgpt/proofofWork.py:460-491 (identical function text)",
+   "pow2026": "DestroyerDarkNess/chatgpt_web_python_api@76e0731 chatgpt_web_api/web_client.py:85-181 (real source text exec'd)"
+  },
+  "note": "2026 clock: scripted perf_counter t_i = i*step (s); elapsed_ms = i*step*1000"
+ },
+ "tokens_2025": [
+  {
+   "seed": "0.123456789",
+   "difficulty": "0fffff",
+   "config": [
+    3000,
+    "Tue Oct 14 2026 05:04:05 GMT-0500 (Eastern Standard Time)",
+    4294705152,
+    0,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    "https://cdn.oaistatic.com/_next/static/chunks/x.js",
+    "453ebaec0d44c2decab71692e1bfe39be35a24b3",
+    "en-US",
+    "en-US,es-US,en,es",
+    0,
+    "onmessage",
+    "attributes",
+    "devicePixelRatio",
+    123456.789012,
+    "5f2a1c3e-9b7d-4a1e-8c6f-0d2e4b7a9c1f",
+    "",
+    8,
+    1750000000000.5
+   ],
+   "expected": "gAAAAABWzMwMDAsIlR1ZSBPY3QgMTQgMjAyNiAwNTowNDowNSBHTVQtMDUwMCAoRWFzdGVybiBTdGFuZGFyZCBUaW1lKSIsNDI5NDcwNTE1MiwzNSwiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEyNy4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiaHR0cHM6Ly9jZG4ub2Fpc3RhdGljLmNvbS9fbmV4dC9zdGF0aWMvY2h1bmtzL3guanMiLCI0NTNlYmFlYzBkNDRjMmRlY2FiNzE2OTJlMWJmZTM5YmUzNWEyNGIzIiwiZW4tVVMiLCJlbi1VUyxlcy1VUyxlbixlcyIsMTcsIm9ubWVzc2FnZSIsImF0dHJpYnV0ZXMiLCJkZXZpY2VQaXhlbFJhdGlvIiwxMjM0NTYuNzg5MDEyLCI1ZjJhMWMzZS05YjdkLTRhMWUtOGM2Zi0wZDJlNGI3YTljMWYiLCIiLDgsMTc1MDAwMDAwMDAwMC41XQ==",
+   "solved": true,
+   "verify": true,
+   "seed_mutated": "9.123456789",
+   "verify_seed_mutated": false,
+   "payload_mutated": "gAAAAABWzMwMDAsIlR1ZSBPY3QgMTQgMjAyNiAwNTowNDowNSBHTVQtMDUwMCAoRWFzdGVybiBTdGFuZGFyZCBUaW1lKSIsNDI5NDcwNTE1MiwzNSwiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEyNy4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiaHR0cHM6Ly9jZG4ub2Fpc3RhdGljLmNvbS9fbmV4dC9zdGF0aWMvY2h1bmtzL3guanMiLCI0NTNlYmFlYzBkNDRjMmRlY2FiNzE2OTJlMWJmZTM5YmUzNWEyNGIzIiwiZW4tVVMiLCJlbi1VUyxlcy1VUyxlbixlcyIsMTcsIm9ubWVzc2FnZSIsImF0dHJpYnV0ZXMiLCJkZXZpY2VQaXhlbFJhdGlvIiwxMjM0NTYuNzg5MDEyLCI1ZjJhMWMzZS05YjdkLTRhMWUtOGM2Zi0wZDJlNGI3YTljMWYiLCIiLDgsMTc1MDAwMDAwMDAwMC41XA==",
+   "payload_mut_xor": 1,
+   "verify_payload_mutated": false
+  },
+  {
+   "seed": "0.987654321098765",
+   "difficulty": "00ffff",
+   "config": [
+    3000,
+    "Tue Oct 14 2026 05:04:05 GMT-0500 (Eastern Standard Time)",
+    4294705152,
+    0,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    "https://cdn.oaistatic.com/_next/static/chunks/x.js",
+    "453ebaec0d44c2decab71692e1bfe39be35a24b3",
+    "en-US",
+    "en-US,es-US,en,es",
+    0,
+    "onmessage",
+    "attributes",
+    "devicePixelRatio",
+    123456.789012,
+    "5f2a1c3e-9b7d-4a1e-8c6f-0d2e4b7a9c1f",
+    "",
+    8,
+    1750000000000.5
+   ],
+   "expected": "gAAAAABWzMwMDAsIlR1ZSBPY3QgMTQgMjAyNiAwNTowNDowNSBHTVQtMDUwMCAoRWFzdGVybiBTdGFuZGFyZCBUaW1lKSIsNDI5NDcwNTE1MiwyNjcsIk1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjcuMC4wLjAgU2FmYXJpLzUzNy4zNiIsImh0dHBzOi8vY2RuLm9haXN0YXRpYy5jb20vX25leHQvc3RhdGljL2NodW5rcy94LmpzIiwiNDUzZWJhZWMwZDQ0YzJkZWNhYjcxNjkyZTFiZmUzOWJlMzVhMjRiMyIsImVuLVVTIiwiZW4tVVMsZXMtVVMsZW4sZXMiLDEzMywib25tZXNzYWdlIiwiYXR0cmlidXRlcyIsImRldmljZVBpeGVsUmF0aW8iLDEyMzQ1Ni43ODkwMTIsIjVmMmExYzNlLTliN2QtNGExZS04YzZmLTBkMmU0YjdhOWMxZiIsIiIsOCwxNzUwMDAwMDAwMDAwLjVd",
+   "solved": true,
+   "verify": true,
+   "seed_mutated": "9.987654321098765",
+   "verify_seed_mutated": false,
+   "payload_mutated": "gAAAAABWzMwMDAsIlR1ZSBPY3QgMTQgMjAyNiAwNTowNDowNSBHTVQtMDUwMCAoRWFzdGVybiBTdGFuZGFyZCBUaW1lKSIsNDI5NDcwNTE1MiwyNjcsIk1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjcuMC4wLjAgU2FmYXJpLzUzNy4zNiIsImh0dHBzOi8vY2RuLm9haXN0YXRpYy5jb20vX25leHQvc3RhdGljL2NodW5rcy94LmpzIiwiNDUzZWJhZWMwZDQ0YzJkZWNhYjcxNjkyZTFiZmUzOWJlMzVhMjRiMyIsImVuLVVTIiwiZW4tVVMsZXMtVVMsZW4sZXMiLDEzMywib25tZXNzYWdlIiwiYXR0cmlidXRlcyIsImRldmljZVBpeGVsUmF0aW8iLDEyMzQ1Ni43ODkwMTIsIjVmMmExYzNlLTliN2QtNGExZS04YzZmLTBkMmU0YjdhOWMxZiIsIiIsOCwxNzUwMDAwMDAwMDAwLjVc",
+   "payload_mut_xor": 1,
+   "verify_payload_mutated": false
+  }
+ ],
+ "requirements_2025": [
+  {
+   "seed": "0.123456789012345",
+   "difficulty": "0fffff",
+   "config": [
+    3000,
+    "Tue Oct 14 2026 05:04:05 GMT-0500 (Eastern Standard Time)",
+    4294705152,
+    0,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    "https://cdn.oaistatic.com/_next/static/chunks/x.js",
+    "453ebaec0d44c2decab71692e1bfe39be35a24b3",
+    "en-US",
+    "en-US,es-US,en,es",
+    0,
+    "onmessage",
+    "attributes",
+    "devicePixelRatio",
+    123456.789012,
+    "5f2a1c3e-9b7d-4a1e-8c6f-0d2e4b7a9c1f",
+    "",
+    8,
+    1750000000000.5
+   ],
+   "expected": "gAAAAACWzMwMDAsIlR1ZSBPY3QgMTQgMjAyNiAwNTowNDowNSBHTVQtMDUwMCAoRWFzdGVybiBTdGFuZGFyZCBUaW1lKSIsNDI5NDcwNTE1Miw4LCJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTI3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJodHRwczovL2Nkbi5vYWlzdGF0aWMuY29tL19uZXh0L3N0YXRpYy9jaHVua3MveC5qcyIsIjQ1M2ViYWVjMGQ0NGMyZGVjYWI3MTY5MmUxYmZlMzliZTM1YTI0YjMiLCJlbi1VUyIsImVuLVVTLGVzLVVTLGVuLGVzIiw0LCJvbm1lc3NhZ2UiLCJhdHRyaWJ1dGVzIiwiZGV2aWNlUGl4ZWxSYXRpbyIsMTIzNDU2Ljc4OTAxMiwiNWYyYTFjM2UtOWI3ZC00YTFlLThjNmYtMGQyZTRiN2E5YzFmIiwiIiw4LDE3NTAwMDAwMDAwMDAuNV0=",
+   "verify": true
+  }
+ ],
+ "fnv2026": [
+  {
+   "input": "",
+   "digest": "ab3e7c0b"
+  },
+  {
+   "input": "a",
+   "digest": "1a80b1b3"
+  },
+  {
+   "input": "The quick brown fox jumps over the lazy dog",
+   "digest": "cc6bf03d"
+  },
+  {
+   "input": "0.123456789WzIxMzQsIngiXQ==",
+   "digest": "3cb1c1f0"
+  },
+  {
+   "input": "−测试",
+   "digest": "96bfce4c"
+  }
+ ],
+ "tokens_2026": [
+  {
+   "seed": "0.123456789",
+   "difficulty": "0fffff",
+   "config": [
+    2134,
+    "Tue Oct 14 2026 20:04:05 GMT+0800 (China Standard Time)",
+    4294967296,
+    0.5,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    null,
+    "prod-20260810913b",
+    "en",
+    "en-US,en",
+    0.25,
+    "vendor−Google Inc.",
+    "_reactListening0123456789",
+    "onmessage",
+    98765.4321,
+    "0f8fad5b-d9cb-469f-a165-70867728950e",
+    "",
+    8,
+    1750000000000.25,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "clock_step_s": 0.5,
+   "expected": "gAAAAABWzIxMzQsIlR1ZSBPY3QgMTQgMjAyNiAyMDowNDowNSBHTVQrMDgwMCAoQ2hpbmEgU3RhbmRhcmQgVGltZSkiLDQyOTQ5NjcyOTYsMywiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEyNy4wLjAuMCBTYWZhcmkvNTM3LjM2IixudWxsLCJwcm9kLTIwMjYwODEwOTEzYiIsImVuIiwiZW4tVVMsZW4iLDIwMDAuMCwidmVuZG9y4oiSR29vZ2xlIEluYy4iLCJfcmVhY3RMaXN0ZW5pbmcwMTIzNDU2Nzg5Iiwib25tZXNzYWdlIiw5ODc2NS40MzIxLCIwZjhmYWQ1Yi1kOWNiLTQ2OWYtYTE2NS03MDg2NzcyODk1MGUiLCIiLDgsMTc1MDAwMDAwMDAwMC4yNSwwLDAsMCwwLDAsMCwwXQ==~S",
+   "attempts": 4,
+   "verify": true,
+   "seed_mutated": "9.123456789",
+   "verify_seed_mutated": false,
+   "payload_mutated": "gAAAAABWzIxMzQsIlR1ZSBPY3QgMTQgMjAyNiAyMDowNDowNSBHTVQrMDgwMCAoQ2hpbmEgU3RhbmRhcmQgVGltZSkiLDQyOTQ5NjcyOTYsMywiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEyNy4wLjAuMCBTYWZhcmkvNTM3LjM2IixudWxsLCJwcm9kLTIwMjYwODEwOTEzYiIsImVuIiwiZW4tVVMsZW4iLDIwMDAuMCwidmVuZG9y4oiSR29vZ2xlIEluYy4iLCJfcmVhY3RMaXN0ZW5pbmcwMTIzNDU2Nzg5Iiwib25tZXNzYWdlIiw5ODc2NS40MzIxLCIwZjhmYWQ1Yi1kOWNiLTQ2OWYtYTE2NS03MDg2NzcyODk1MGUiLCIiLDgsMTc1MDAwMDAwMDAwMC4yNSwwLDAsMCwwLDAsMCwwXA==~S",
+   "payload_mut_xor": 1,
+   "verify_payload_mutated": false
+  },
+  {
+   "seed": "0.4815162342",
+   "difficulty": "00ffff",
+   "config": [
+    2134,
+    "Tue Oct 14 2026 20:04:05 GMT+0800 (China Standard Time)",
+    4294967296,
+    0.5,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    null,
+    "prod-20260810913b",
+    "en",
+    "en-US,en",
+    0.25,
+    "vendor−Google Inc.",
+    "_reactListening0123456789",
+    "onmessage",
+    98765.4321,
+    "0f8fad5b-d9cb-469f-a165-70867728950e",
+    "",
+    8,
+    1750000000000.25,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "clock_step_s": 0.25,
+   "expected": "gAAAAABWzIxMzQsIlR1ZSBPY3QgMTQgMjAyNiAyMDowNDowNSBHTVQrMDgwMCAoQ2hpbmEgU3RhbmRhcmQgVGltZSkiLDQyOTQ5NjcyOTYsNDYsIk1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjcuMC4wLjAgU2FmYXJpLzUzNy4zNiIsbnVsbCwicHJvZC0yMDI2MDgxMDkxM2IiLCJlbiIsImVuLVVTLGVuIiwxMTc1MC4wLCJ2ZW5kb3LiiJJHb29nbGUgSW5jLiIsIl9yZWFjdExpc3RlbmluZzAxMjM0NTY3ODkiLCJvbm1lc3NhZ2UiLDk4NzY1LjQzMjEsIjBmOGZhZDViLWQ5Y2ItNDY5Zi1hMTY1LTcwODY3NzI4OTUwZSIsIiIsOCwxNzUwMDAwMDAwMDAwLjI1LDAsMCwwLDAsMCwwLDBd~S",
+   "attempts": 47,
+   "verify": true,
+   "seed_mutated": "9.4815162342",
+   "verify_seed_mutated": false,
+   "payload_mutated": "gAAAAABWzIxMzQsIlR1ZSBPY3QgMTQgMjAyNiAyMDowNDowNSBHTVQrMDgwMCAoQ2hpbmEgU3RhbmRhcmQgVGltZSkiLDQyOTQ5NjcyOTYsNDYsIk1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjcuMC4wLjAgU2FmYXJpLzUzNy4zNiIsbnVsbCwicHJvZC0yMDI2MDgxMDkxM2IiLCJlbiIsImVuLVVTLGVuIiwxMTc1MC4wLCJ2ZW5kb3LiiJJHb29nbGUgSW5jLiIsIl9yZWFjdExpc3RlbmluZzAxMjM0NTY3ODkiLCJvbm1lc3NhZ2UiLDk4NzY1LjQzMjEsIjBmOGZhZDViLWQ5Y2ItNDY5Zi1hMTY1LTcwODY3NzI4OTUwZSIsIiIsOCwxNzUwMDAwMDAwMDAwLjI1LDAsMCwwLDAsMCwwLDBc~S",
+   "payload_mut_xor": 1,
+   "verify_payload_mutated": false
+  }
+ ],
+ "requirements_2026": [
+  {
+   "config": [
+    2134,
+    "Tue Oct 14 2026 20:04:05 GMT+0800 (China Standard Time)",
+    4294967296,
+    0.5,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    null,
+    "prod-20260810913b",
+    "en",
+    "en-US,en",
+    0.25,
+    "vendor−Google Inc.",
+    "_reactListening0123456789",
+    "onmessage",
+    98765.4321,
+    "0f8fad5b-d9cb-469f-a165-70867728950e",
+    "",
+    8,
+    1750000000000.25,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "expected": "gAAAAACWzIxMzQsIlR1ZSBPY3QgMTQgMjAyNiAyMDowNDowNSBHTVQrMDgwMCAoQ2hpbmEgU3RhbmRhcmQgVGltZSkiLDQyOTQ5NjcyOTYsMSwiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEyNy4wLjAuMCBTYWZhcmkvNTM3LjM2IixudWxsLCJwcm9kLTIwMjYwODEwOTEzYiIsImVuIiwiZW4tVVMsZW4iLDk4NzY1LjQzMjEsInZlbmRvcuKIkkdvb2dsZSBJbmMuIiwiX3JlYWN0TGlzdGVuaW5nMDEyMzQ1Njc4OSIsIm9ubWVzc2FnZSIsOTg3NjUuNDMyMSwiMGY4ZmFkNWItZDljYi00NjlmLWExNjUtNzA4Njc3Mjg5NTBlIiwiIiw4LDE3NTAwMDAwMDAwMDAuMjUsMCwwLDAsMCwwLDAsMF0=",
+   "note": "prepared[3]=1; prepared[9]=config[13]"
+  }
+ ],
+ "float_repr": [
+  [
+   "0.0",
+   "0.0"
+  ],
+  [
+   "-0.0",
+   "-0.0"
+  ],
+  [
+   "0.1",
+   "0.1"
+  ],
+  [
+   "0.5",
+   "0.5"
+  ],
+  [
+   "2.0",
+   "2.0"
+  ],
+  [
+   "123456.789012",
+   "123456.789012"
+  ],
+  [
+   "98765.4321",
+   "98765.4321"
+  ],
+  [
+   "0.0001",
+   "0.0001"
+  ],
+  [
+   "1e-05",
+   "1e-05"
+  ],
+  [
+   "1e-07",
+   "1e-07"
+  ],
+  [
+   "1000000000000000.0",
+   "1000000000000000.0"
+  ],
+  [
+   "1e+16",
+   "1e+16"
+  ],
+  [
+   "1.2345678901234568e+16",
+   "1.2345678901234568e+16"
+  ],
+  [
+   "1234567890123456.0",
+   "1234567890123456.0"
+  ],
+  [
+   "-123.456",
+   "-123.456"
+  ],
+  [
+   "4294967296.0",
+   "4294967296.0"
+  ],
+  [
+   "1750000000000.5",
+   "1750000000000.5"
+  ],
+  [
+   "1.0e300",
+   "1e+300"
+  ],
+  [
+   "5e-324",
+   "5e-324"
+  ]
+ ],
+ "string_escape": [
+  [
+   "plain",
+   "\"plain\""
+  ],
+  [
+   "with \"quote\"",
+   "\"with \\\"quote\\\"\""
+  ],
+  [
+   "back\\slash",
+   "\"back\\\\slash\""
+  ],
+  [
+   "tab\tnl\n",
+   "\"tab\\tnl\\n\""
+  ],
+  [
+   "\u0001\u001f",
+   "\"\\u0001\\u001f\""
+  ],
+  [
+   "vendor−Google Inc.",
+   "\"vendor−Google Inc.\""
+  ],
+  [
+   "测试中文",
+   "\"测试中文\""
+  ],
+  [
+   "line sep ",
+   "\"line sep \""
+  ]
+ ],
+ "config_encode": [
+  {
+   "config": [
+    3000,
+    "Tue Oct 14 2026 05:04:05 GMT-0500 (Eastern Standard Time)",
+    4294705152,
+    0,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    "https://cdn.oaistatic.com/_next/static/chunks/x.js",
+    "453ebaec0d44c2decab71692e1bfe39be35a24b3",
+    "en-US",
+    "en-US,es-US,en,es",
+    0,
+    "onmessage",
+    "attributes",
+    "devicePixelRatio",
+    123456.789012,
+    "5f2a1c3e-9b7d-4a1e-8c6f-0d2e4b7a9c1f",
+    "",
+    8,
+    1750000000000.5
+   ],
+   "expected": "WzMwMDAsIlR1ZSBPY3QgMTQgMjAyNiAwNTowNDowNSBHTVQtMDUwMCAoRWFzdGVybiBTdGFuZGFyZCBUaW1lKSIsNDI5NDcwNTE1MiwwLCJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTI3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJodHRwczovL2Nkbi5vYWlzdGF0aWMuY29tL19uZXh0L3N0YXRpYy9jaHVua3MveC5qcyIsIjQ1M2ViYWVjMGQ0NGMyZGVjYWI3MTY5MmUxYmZlMzliZTM1YTI0YjMiLCJlbi1VUyIsImVuLVVTLGVzLVVTLGVuLGVzIiwwLCJvbm1lc3NhZ2UiLCJhdHRyaWJ1dGVzIiwiZGV2aWNlUGl4ZWxSYXRpbyIsMTIzNDU2Ljc4OTAxMiwiNWYyYTFjM2UtOWI3ZC00YTFlLThjNmYtMGQyZTRiN2E5YzFmIiwiIiw4LDE3NTAwMDAwMDAwMDAuNV0="
+  },
+  {
+   "config": [
+    2134,
+    "Tue Oct 14 2026 20:04:05 GMT+0800 (China Standard Time)",
+    4294967296,
+    0.5,
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+    null,
+    "prod-20260810913b",
+    "en",
+    "en-US,en",
+    0.25,
+    "vendor−Google Inc.",
+    "_reactListening0123456789",
+    "onmessage",
+    98765.4321,
+    "0f8fad5b-d9cb-469f-a165-70867728950e",
+    "",
+    8,
+    1750000000000.25,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "expected": "WzIxMzQsIlR1ZSBPY3QgMTQgMjAyNiAyMDowNDowNSBHTVQrMDgwMCAoQ2hpbmEgU3RhbmRhcmQgVGltZSkiLDQyOTQ5NjcyOTYsMC41LCJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTI3LjAuMC4wIFNhZmFyaS81MzcuMzYiLG51bGwsInByb2QtMjAyNjA4MTA5MTNiIiwiZW4iLCJlbi1VUyxlbiIsMC4yNSwidmVuZG9y4oiSR29vZ2xlIEluYy4iLCJfcmVhY3RMaXN0ZW5pbmcwMTIzNDU2Nzg5Iiwib25tZXNzYWdlIiw5ODc2NS40MzIxLCIwZjhmYWQ1Yi1kOWNiLTQ2OWYtYTE2NS03MDg2NzcyODk1MGUiLCIiLDgsMTc1MDAwMDAwMDAwMC4yNSwwLDAsMCwwLDAsMCwwXQ=="
+  }
+ ],
+ "config_defaults": {
+  "scripted": {
+   "random_choice": "seq[0]",
+   "random_random": 0.125,
+   "uuid_hex": "aabbccddeeff00112233445566778899",
+   "perf_counter_s": 0.25,
+   "now_2025_utc": "2026-10-14T10:04:05Z",
+   "now_2026_utc": "2026-10-14T12:04:05Z",
+   "now_2026_local": "2026-10-14 21:04:05 +0900 (Tokyo Standard Time)",
+   "cpu_count": 8
+  },
+  "config2025": [
+   3000,
+   "Wed Oct 14 2026 05:04:05 GMT-0500 (Eastern Standard Time)",
+   4294705152,
+   0,
+   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) test/1.0",
+   "https://cdn.oaistatic.com/_next/static/chunks/x.js",
+   "453ebaec0d44c2decab71692e1bfe39be35a24b3",
+   "en-US",
+   "en-US,es-US,en,es",
+   0,
+   "onmessage",
+   "attributes",
+   "devicePixelRatio",
+   250.0,
+   "aabbccdd-eeff-0011-2233-445566778899",
+   "",
+   4,
+   1791972244750.0
+  ],
+  "config2026": [
+   2134,
+   "Wed Oct 14 2026 21:04:05 GMT+0900 (Tokyo Standard Time)",
+   4294967296,
+   0.125,
+   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) test/1.0",
+   null,
+   "prod-20260810913b",
+   "en",
+   "en-US,en",
+   0.125,
+   "vendor−Google Inc.",
+   "_reactListeningaabbccddee",
+   "onmessage",
+   250.0,
+   "aabbccdd-eeff-0011-2233-445566778899",
+   "",
+   8,
+   1791979445000.0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "config2025_json": "[3000,\"Wed Oct 14 2026 05:04:05 GMT-0500 (Eastern Standard Time)\",4294705152,0,\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) test/1.0\",\"https://cdn.oaistatic.com/_next/static/chunks/x.js\",\"453ebaec0d44c2decab71692e1bfe39be35a24b3\",\"en-US\",\"en-US,es-US,en,es\",0,\"onmessage\",\"attributes\",\"devicePixelRatio\",250.0,\"aabbccdd-eeff-0011-2233-445566778899\",\"\",4,1791972244750.0]",
+  "config2026_json": "[2134,\"Wed Oct 14 2026 21:04:05 GMT+0900 (Tokyo Standard Time)\",4294967296,0.125,\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) test/1.0\",null,\"prod-20260810913b\",\"en\",\"en-US,en\",0.125,\"vendor−Google Inc.\",\"_reactListeningaabbccddee\",\"onmessage\",250.0,\"aabbccdd-eeff-0011-2233-445566778899\",\"\",8,1791979445000.0,0,0,0,0,0,0,0]",
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) test/1.0"
+ }
+}

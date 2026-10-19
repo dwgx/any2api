@@ -1,0 +1,7 @@
+{
+  "model": "gemini-3-flash-preview",
+  "max_tokens": 64,
+  "system": "Be terse.",
+  "messages": [{ "role": "user", "content": "Hi" }],
+  "stream": true
+}

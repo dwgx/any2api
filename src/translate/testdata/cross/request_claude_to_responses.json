@@ -1,0 +1,38 @@
+{
+  "model": "claude-x",
+  "max_tokens": 256,
+  "system": "Be brief.",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hi"
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "lookup",
+      "description": "Look up",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "tool_choice": {
+    "type": "tool",
+    "name": "lookup"
+  },
+  "thinking": {
+    "type": "enabled",
+    "budget_tokens": 1024
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "systemInstruction": {"role": "user", "parts": [{"text": "S1"}]},
+  "contents": [
+    {"role": "user", "parts": [{"text": "u1"}]},
+    {"role": "model", "parts": [{"text": "a1"}, {"functionCall": {"id": "call_a", "name": "get_weather", "args": {"city": "Paris"}}}]},
+    {"role": "user", "parts": [{"functionResponse": {"id": "call_a", "name": "get_weather", "response": {"temp": 18}}}]},
+    {"role": "user", "parts": [{"text": "<system-reminder>\nS2-mid\n</system-reminder>"}]}
+  ],
+  "tools": [
+    {"functionDeclarations": [{"name": "get_weather", "description": "d", "parameters": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"]}}]}
+  ],
+  "toolConfig": {"functionCallingConfig": {"mode": "AUTO"}},
+  "generationConfig": {"maxOutputTokens": 256, "temperature": 0.5, "stopSequences": ["END"]},
+  "safetySettings": [
+    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "OFF"},
+    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "OFF"},
+    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "OFF"},
+    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "OFF"},
+    {"category": "HARM_CATEGORY_CIVIC_INTEGRITY", "threshold": "BLOCK_NONE"}
+  ]
+}

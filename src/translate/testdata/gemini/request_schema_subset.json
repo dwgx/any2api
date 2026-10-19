@@ -1,0 +1,42 @@
+{
+  "contents": [
+    {"role": "user", "parts": [{"text": "Plan a trip."}]}
+  ],
+  "tools": [
+    {
+      "functionDeclarations": [
+        {
+          "name": "plan_trip",
+          "description": "Plan a trip",
+          "parameters": {
+            "$defs": {"Currency": {"type": "string"}},
+            "type": "object",
+            "properties": {
+              "mode": {
+                "description": "See: TravelMode",
+                "enum": ["train", "plane", 1],
+                "type": "string",
+                "x-vendor-note": "drop me"
+              },
+              "currency": {"$ref": "#/$defs/Currency", "description": "currency code"},
+              "stops": {
+                "type": "array",
+                "items": {"type": "string"},
+                "allOf": [
+                  {"properties": {"hint": {"type": "string"}}, "required": ["hint"]}
+                ]
+              },
+              "budget": {
+                "anyOf": [
+                  {"type": "null"},
+                  {"type": "number", "description": "total budget"}
+                ]
+              }
+            },
+            "required": ["mode", "stops", "ghost"]
+          }
+        }
+      ]
+    }
+  ]
+}

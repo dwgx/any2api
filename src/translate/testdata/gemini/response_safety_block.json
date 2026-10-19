@@ -1,0 +1,15 @@
+{
+  "responseId": "r-blocked-1",
+  "modelVersion": "gemini-2.5-flash",
+  "candidates": [],
+  "promptFeedback": {
+    "blockReason": "SAFETY",
+    "safetyRatings": [
+      {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "probability": "HIGH"}
+    ]
+  },
+  "usageMetadata": {
+    "promptTokenCount": 5,
+    "totalTokenCount": 5
+  }
+}

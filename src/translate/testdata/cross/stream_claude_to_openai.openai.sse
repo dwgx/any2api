@@ -1,0 +1,9 @@
+data: {"id":"msg_s3","object":"chat.completion.chunk","created":0,"model":"claude-sonnet-4-5","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"msg_s3","object":"chat.completion.chunk","created":0,"model":"claude-sonnet-4-5","choices":[{"index":0,"delta":{"content":"Hi"},"finish_reason":null}]}
+
+data: {"id":"msg_s3","object":"chat.completion.chunk","created":0,"model":"claude-sonnet-4-5","choices":[{"index":0,"delta":{},"finish_reason":"stop"}]}
+
+data: {"id":"msg_s3","object":"chat.completion.chunk","created":0,"model":"claude-sonnet-4-5","choices":[],"usage":{"prompt_tokens":100,"completion_tokens":7,"total_tokens":157,"prompt_tokens_details":{"cached_tokens":50}}}
+
+data: [DONE]

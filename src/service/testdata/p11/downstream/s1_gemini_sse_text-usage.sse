@@ -1,0 +1,6 @@
+data: {"candidates":[{"content":{"role":"model","parts":[{"text":"Hel"}]},"index":0}],"modelVersion":"gemini-2.5-flash","responseId":"r-p11-text","usageMetadata":{"promptTokenCount":101,"candidatesTokenCount":1}}
+
+data: {"candidates":[{"content":{"role":"model","parts":[{"text":"lo"}]},"index":0}],"responseId":"r-p11-text","usageMetadata":{"promptTokenCount":101,"candidatesTokenCount":59,"totalTokenCount":160}}
+
+data: {"candidates":[{"content":{"role":"model","parts":[]},"finishReason":"STOP","index":0}],"responseId":"r-p11-text","usageMetadata":{"promptTokenCount":101,"candidatesTokenCount":63,"thoughtsTokenCount":7,"totalTokenCount":171}}
+

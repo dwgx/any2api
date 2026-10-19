@@ -1,0 +1,4 @@
+data: {"candidates":[{"content":{"role":"model","parts":[{"text":"Hi"}]},"index":0}],"responseId":"r9"}
+
+data: {"error":{"code":429,"message":"quota exceeded","status":"RESOURCE_EXHAUSTED"}}
+

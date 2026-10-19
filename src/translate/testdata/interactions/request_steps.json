@@ -1,0 +1,58 @@
+{
+  "model": "gemini-3-flash-preview",
+  "system_instruction": "You are terse.",
+  "input": [
+    {
+      "type": "user_input",
+      "content": [{ "type": "text", "text": "Turn the lights down to a romantic level" }]
+    },
+    {
+      "type": "thought",
+      "signature": "thought_sig_abcd1234",
+      "summary": [{ "type": "text", "text": "The user wants the lights dimmed and warm." }]
+    },
+    {
+      "type": "function_call",
+      "id": "call_98231",
+      "name": "set_light_values",
+      "arguments": { "brightness": 30, "color_temp": "warm" }
+    },
+    {
+      "type": "function_result",
+      "name": "set_light_values",
+      "call_id": "call_98231",
+      "result": [{ "type": "text", "text": "{\"ok\":true}" }]
+    },
+    {
+      "type": "model_output",
+      "content": [{ "type": "text", "text": "Done — lights are at 30% warm." }]
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "name": "set_light_values",
+      "description": "Set light brightness and color temperature",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "brightness": { "type": "integer" },
+          "color_temp": { "type": "string" }
+        },
+        "required": ["brightness"]
+      }
+    }
+  ],
+  "generation_config": {
+    "max_output_tokens": 256,
+    "temperature": 0.4,
+    "top_p": 0.9,
+    "stop_sequences": ["END"],
+    "seed": 7,
+    "thinking_level": "low",
+    "thinking_summaries": "auto",
+    "tool_choice": "any"
+  },
+  "stream": true,
+  "store": false
+}

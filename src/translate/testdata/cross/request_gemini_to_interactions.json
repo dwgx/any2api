@@ -1,0 +1,7 @@
+{
+  "model": "gemini-3-flash-preview",
+  "systemInstruction": { "parts": [{ "text": "Be brief." }] },
+  "contents": [{ "role": "user", "parts": [{ "text": "Hi" }] }],
+  "generationConfig": { "maxOutputTokens": 64, "temperature": 0.3, "thinkingConfig": { "thinkingLevel": "LOW" } },
+  "stream": true
+}

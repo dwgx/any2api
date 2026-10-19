@@ -1,0 +1,25 @@
+{
+  "model": "claude-sonnet-4-5",
+  "max_tokens": 1024,
+  "system": [
+    {"type": "text", "text": "You are a weather bot."},
+    {"type": "text", "text": "Be terse."}
+  ],
+  "messages": [
+    {"role": "user", "content": "Weather in Paris?"},
+    {"role": "assistant", "content": [
+      {"type": "text", "text": "Let me check."},
+      {"type": "tool_use", "id": "toolu_01", "name": "get_weather", "input": {"city": "Paris"}}
+    ]},
+    {"role": "user", "content": [
+      {"type": "tool_result", "tool_use_id": "toolu_01", "content": "{\"temp_c\":21}"}
+    ]}
+  ],
+  "tools": [
+    {"name": "get_weather", "description": "Get current weather", "input_schema": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"]}}
+  ],
+  "tool_choice": {"type": "auto"},
+  "stop_sequences": ["END"],
+  "temperature": 0.2,
+  "stream": true
+}

@@ -1,0 +1,3 @@
+data: {"candidates": [{"content": {"role": "model", "parts": [{"text": "partial"}]}, "finishReason": null, "index": 0}]}
+
+{"error":{"code":429,"message":"quota exceeded for this key","status":"RESOURCE_EXHAUSTED"}}

@@ -1,0 +1,48 @@
+event: delta_encoding
+data: "v1"
+
+data: {"type": "resume_conversation_token", "kind": "topic", "token": "<token:419 chars>", "conversation_id": "<id-1>"}
+
+event: delta
+data: {"p": "", "o": "add", "v": {"message": {"id": "<id-2>", "author": {"role": "user", "name": null, "metadata": {}}, "create_time": 1791990875.362486, "update_time": null, "content": {"content_type": "text", "parts": ["Reply with exactly: PONG"]}, "status": "finished_successfully", "end_turn": null, "weight": 1.0, "metadata": {"request_id": "<id-3>", "message_source": null, "turn_exchange_id": "<id-4>", "working_turn_id": "<id-4>", "model_switcher_deny": []}, "recipient": "all", "channel": null}, "conversation_id": "<id-1>", "error": null, "error_code": null}, "c": 0}
+
+event: delta
+data: {"v": {"message": {"id": "<id-5>", "author": {"role": "system", "name": null, "metadata": {}}, "create_time": null, "update_time": null, "content": {"content_type": "text", "parts": [""]}, "status": "finished_successfully", "end_turn": true, "weight": 0.0, "metadata": {"rebase_system_message": true, "is_visually_hidden_from_conversation": true, "cot_version": "v5", "request_id": "<id-3>", "message_type": "next", "turn_exchange_id": "<id-4>", "working_turn_id": "<id-4>", "model_slug": "gpt-6", "default_model_slug": "auto", "parent_id": "<id-2>", "model_switcher_deny": []}, "recipient": "all", "channel": null}, "conversation_id": "<id-1>", "error": null, "error_code": null}, "c": 1}
+
+event: delta
+data: {"v": {"message": {"id": "<id-6>", "author": {"role": "system", "name": null, "metadata": {}}, "create_time": null, "update_time": null, "content": {"content_type": "text", "parts": [""]}, "status": "finished_successfully", "end_turn": true, "weight": 0.0, "metadata": {"rebase_developer_message": true, "is_visually_hidden_from_conversation": true, "cot_version": "v5", "request_id": "<id-3>", "message_type": "next", "turn_exchange_id": "<id-4>", "working_turn_id": "<id-4>", "model_slug": "gpt-6", "default_model_slug": "auto", "parent_id": "<id-5>", "model_switcher_deny": []}, "recipient": "all", "channel": null}, "conversation_id": "<id-1>", "error": null, "error_code": null}, "c": 2}
+
+event: delta
+data: {"v": {"message": {"id": "<id-7>", "author": {"role": "system", "name": null, "metadata": {}}, "create_time": 1791990875.377487, "update_time": null, "content": {"content_type": "text", "parts": [""]}, "status": "finished_successfully", "end_turn": null, "weight": 1.0, "metadata": {"is_visually_hidden_from_conversation": true, "cot_version": "v5", "request_id": "<id-3>", "message_type": "next", "turn_exchange_id": "<id-4>", "working_turn_id": "<id-4>", "model_slug": "gpt-6", "default_model_slug": "auto", "parent_id": "<id-6>", "model_switcher_deny": []}, "recipient": "all", "channel": null}, "conversation_id": "<id-1>", "error": null, "error_code": null}, "c": 3}
+
+event: delta
+data: {"v": {"message": {"id": "<id-8>", "author": {"role": "system", "name": null, "metadata": {}}, "create_time": 1791990875.3779469, "update_time": null, "content": {"content_type": "text", "parts": [""]}, "status": "finished_successfully", "end_turn": null, "weight": 1.0, "metadata": {"is_visually_hidden_from_conversation": true, "cot_version": "v5", "request_id": "<id-3>", "message_type": "next", "turn_exchange_id": "<id-4>", "working_turn_id": "<id-4>", "model_slug": "gpt-6", "default_model_slug": "auto", "parent_id": "<id-7>", "model_switcher_deny": []}, "recipient": "all", "channel": null}, "conversation_id": "<id-1>", "error": null, "error_code": null}, "c": 4}
+
+data: {"type": "message_marker", "conversation_id": "<id-1>", "message_id": "<id-9>", "marker": "cot_token", "event": "first"}
+
+event: delta
+data: {"v": {"message": {"id": "<id-9>", "author": {"role": "assistant", "name": null, "metadata": {}}, "create_time": null, "update_time": null, "content": {"content_type": "reasoning_recap", "content": "Worked for a second"}, "status": "finished_successfully", "end_turn": false, "weight": 1.0, "metadata": {"reasoning_status": "reasoning_ended", "finished_duration_sec": 0, "reasoning_start_time": 1791990875.785352, "reasoning_end_time": 1791990875.9240487, "reasoning_recap_type": "hide_all", "cot_version": "v5", "conversation_followup_suggestions_eligible": true, "request_id": "<id-3>", "message_type": "next", "turn_exchange_id": "<id-4>", "working_turn_id": "<id-4>", "model_slug": "gpt-6", "default_model_slug": "auto", "can_save": false, "parent_id": "<id-8>", "hide_inline_actions": true, "model_switcher_deny": []}, "recipient": "all", "channel": null}, "conversation_id": "<id-1>", "error": null, "error_code": null}, "c": 5}
+
+event: delta
+data: {"v": {"message": {"id": "<id-10>", "author": {"role": "assistant", "name": null, "metadata": {}}, "create_time": 1791990875.500702, "update_time": null, "content": {"content_type": "text", "parts": [""]}, "status": "in_progress", "end_turn": null, "weight": 1.0, "metadata": {"citations": [], "content_references": [], "story_events": [], "cot_version": "v5", "conversation_followup_suggestions_eligible": true, "request_id": "<id-3>", "message_type": "next", "turn_exchange_id": "<id-4>", "working_turn_id": "<id-4>", "model_slug": "gpt-6", "default_model_slug": "auto", "parent_id": "<id-9>", "model_switcher_deny": []}, "recipient": "all", "channel": "final"}, "conversation_id": "<id-1>", "error": null, "error_code": null}, "c": 6}
+
+data: {"type": "message_marker", "conversation_id": "<id-1>", "message_id": "<id-10>", "marker": "user_visible_token", "event": "first"}
+
+data: {"type": "message_marker", "conversation_id": "<id-1>", "message_id": "<id-10>", "marker": "final_channel_token", "event": "first"}
+
+event: delta
+data: {"p": "/message/content/parts/0", "o": "append", "v": "PONG"}
+
+event: delta
+data: {"p": "", "o": "patch", "v": [{"p": "/message/status", "o": "replace", "v": "finished_successfully"}, {"p": "/message/end_turn", "o": "replace", "v": true}, {"p": "/message/metadata", "o": "append", "v": {"is_complete": true, "finish_details": {"type": "stop", "stop_tokens": [200002]}, "can_save": true, "search_result_groups": []}}]}
+
+data: {"type": "message_marker", "conversation_id": "<id-1>", "message_id": "<id-10>", "marker": "last_token", "event": "last"}
+
+data: {"type": "title_generation", "title": "Reply PONG", "conversation_id": "<id-1>"}
+
+data: {"type": "server_ste_metadata", "metadata": {"server_ttfvt_ms": 994.5078400196508, "conduit_prewarmed": false, "plan_type": "guest", "plan_type_bucket": "guest", "user_agent": "app_android", "service": null, "tool_name": null, "tool_invoked": false, "fast_convo": true, "warmup_state": "rewarm", "is_first_turn": true, "cluster_region": "eastus3", "model_slug": "gpt-6", "requested_model_experience": "instant", "product_experience": "chat", "region": null, "is_multimodal": null, "did_auto_switch_to_reasoning": false, "auto_switcher_race_winner": null, "is_autoswitcher_enabled": false, "is_search": null, "did_prompt_contain_image": false, "search_tool_call_count": null, "search_tool_query_types": null, "message_id": "<id-2>", "request_id": "<id-3>", "turn_exchange_id": "<id-4>", "turn_trace_id": null, "a32e6ebcb": 1, "resume_with_websockets": true, "low_turn_topic_ttl": false, "streaming_async_status": true, "replace_stream_status": true, "temporal_conversation_turn": false, "pro_mode_turn_topic_streaming": null, "turn_use_case": "thinking", "turn_mode": "default"}, "conversation_id": "<id-1>"}
+
+data: {"type": "message_stream_complete", "conversation_id": "<id-1>"}
+
+data: [DONE]
+

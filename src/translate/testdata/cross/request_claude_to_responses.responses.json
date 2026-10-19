@@ -1,0 +1,1 @@
+{"input":[{"content":[{"text":"Hi","type":"input_text"}],"role":"user"}],"instructions":"Be brief.","max_output_tokens":256,"model":"claude-x","tool_choice":{"name":"lookup","type":"function"},"tools":[{"description":"Look up","name":"lookup","parameters":{"type":"object","properties":{"q":{"type":"string"}}},"type":"function"}]}

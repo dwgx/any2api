@@ -1,0 +1,26 @@
+event: interaction.created
+data: {"interaction":{"id":"v1_tool","status":"in_progress","object":"interaction","model":"gemini-3-flash-preview"},"event_type":"interaction.created"}
+
+event: interaction.status_update
+data: {"interaction_id":"v1_tool","status":"in_progress","event_type":"interaction.status_update"}
+
+event: step.start
+data: {"index":0,"step":{"type":"function_call","id":"un6k8t18","name":"get_weather","arguments":{}},"event_type":"step.start"}
+
+event: step.delta
+data: {"index":0,"delta":{"type":"arguments_delta","arguments":"{\"location\": \"San"},"event_type":"step.delta"}
+
+event: step.delta
+data: {"index":0,"delta":{"type":"arguments_delta","arguments":" Francisco, CA\"}"},"event_type":"step.delta"}
+
+event: step.stop
+data: {"index":0,"event_type":"step.stop"}
+
+event: interaction.status_update
+data: {"interaction_id":"v1_tool","status":"requires_action","event_type":"interaction.status_update"}
+
+event: interaction.completed
+data: {"interaction":{"id":"v1_tool","status":"requires_action","usage":{"total_input_tokens":20,"total_output_tokens":8,"total_tokens":28},"created":"2026-05-12T18:44:51Z","updated":"2026-05-12T18:44:51Z","object":"interaction","model":"gemini-3-flash-preview"},"event_type":"interaction.completed"}
+
+event: done
+data: [DONE]
